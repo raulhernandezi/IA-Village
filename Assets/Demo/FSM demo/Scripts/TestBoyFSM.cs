@@ -11,6 +11,7 @@ public class TestBoyFSM : MonoBehaviour {
     [SerializeField] private GameObject chicken;
 
     private StateMachineEngine testBoyFSM;
+    private UtilitySystem US;
     private NavMeshAgent meshAgent;
     private ArriveToDestination arriveToDestination;
     private float distanceToChicken = 10;
@@ -22,6 +23,7 @@ public class TestBoyFSM : MonoBehaviour {
     {
         meshAgent = GetComponent<NavMeshAgent>();
         testBoyFSM = new StateMachineEngine(false);
+        US = new UtilitySystem();
 
         CreateStateMachine();
     }
