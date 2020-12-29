@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<XMLElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>4c02cb8f-b92f-4687-bee7-faafcd0c6e45</Id>
+  <elemType>FSM</elemType>
+  <secondType />
+  <thirdType />
+  <fourthType />
+  <name>fsmCazador</name>
+  <windowPosX>340</windowPosX>
+  <windowPosY>252</windowPosY>
+  <nodes>
+    <XMLElement>
+      <Id>cbaf8eda-edcd-4c93-ab1d-9bfb67e13566</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Entry</secondType>
+      <thirdType />
+      <fourthType />
+      <name>Rondar</name>
+      <windowPosX>233</windowPosX>
+      <windowPosY>321</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>7c51c70c-295c-49b9-b5eb-a25684f68f8c</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Default</secondType>
+      <thirdType />
+      <fourthType />
+      <name>Disparar</name>
+      <windowPosX>735</windowPosX>
+      <windowPosY>13</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>56c41b9b-24d1-4bda-8a92-76c9dd72434d</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Default</secondType>
+      <thirdType />
+      <fourthType />
+      <name>CogerComida</name>
+      <windowPosX>1232</windowPosX>
+      <windowPosY>312</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>5dafcbeb-e750-4db1-baba-0cfbedf1dc9f</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Default</secondType>
+      <thirdType />
+      <fourthType />
+      <name>DejarComida</name>
+      <windowPosX>749</windowPosX>
+      <windowPosY>659</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+  </nodes>
+  <transitions>
+    <XMLElement>
+      <Id>388e5f89-4365-491c-a3a2-6dc4cd3c6d99</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>AnimalEnRango</name>
+      <windowPosX>479</windowPosX>
+      <windowPosY>183.5</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>cbaf8eda-edcd-4c93-ab1d-9bfb67e13566</fromId>
+      <toId>7c51c70c-295c-49b9-b5eb-a25684f68f8c</toId>
+      <perception>
+        <Id>785c83b0-f017-418b-9508-b0a5ecde81e5</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>true</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>604a852c-14b7-41de-8136-5fe6bef7f4f1</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>IrAPorComida</name>
+      <windowPosX>978.5</windowPosX>
+      <windowPosY>179</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>7c51c70c-295c-49b9-b5eb-a25684f68f8c</fromId>
+      <toId>56c41b9b-24d1-4bda-8a92-76c9dd72434d</toId>
+      <perception>
+        <Id>e57e4c20-7a74-4f21-aa50-e67a58b27251</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>true</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>90345ba2-a0bc-4f92-be7a-0d733fd84d71</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>IrADejarComida</name>
+      <windowPosX>985.5</windowPosX>
+      <windowPosY>502</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>56c41b9b-24d1-4bda-8a92-76c9dd72434d</fromId>
+      <toId>5dafcbeb-e750-4db1-baba-0cfbedf1dc9f</toId>
+      <perception>
+        <Id>aa386190-7727-443e-8a96-ffcd4935f960</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>true</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>fbae9dff-2e4f-4d36-981d-2f651671da5e</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>RondarDeNuevo</name>
+      <windowPosX>486</windowPosX>
+      <windowPosY>506.5</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>5dafcbeb-e750-4db1-baba-0cfbedf1dc9f</fromId>
+      <toId>cbaf8eda-edcd-4c93-ab1d-9bfb67e13566</toId>
+      <perception>
+        <Id>d3c421d0-5566-449e-be5d-1d30717c9128</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>true</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+  </transitions>
+  <isRandom>false</isRandom>
+  <isInfinite>false</isInfinite>
+  <delayTime>0</delayTime>
+  <Nloops>0</Nloops>
+  <index>0</index>
+  <variableMin>0</variableMin>
+  <variableMax>0</variableMax>
+  <slope>0</slope>
+  <exp>0</exp>
+  <displX>0</displX>
+  <displY>0</displY>
+  <weight>0</weight>
+  <isExit>false</isExit>
+</XMLElement>
