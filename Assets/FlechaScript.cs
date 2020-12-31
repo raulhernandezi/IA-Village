@@ -14,13 +14,13 @@ public class FlechaScript : MonoBehaviour
     void Start()
     {
         speed = 2;
-        
+        Physics.IgnoreCollision(owner.gameObject.GetComponent<Collider>(), this.gameObject.GetComponent<Collider>());
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * 0.1f, Space.Self);
+        //transform.Translate(Vector3.forward * Time.deltaTime * 0.0000000000000000000000000000000000000000000001f, Space.Self);
         //transform.position = Vector3.MoveTowards(transform.position, jabali.transform.position, 0.1f * Time.deltaTime);
     }
 

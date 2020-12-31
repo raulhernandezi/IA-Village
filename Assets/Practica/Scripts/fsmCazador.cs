@@ -27,6 +27,7 @@ public class fsmCazador : MonoBehaviour {
     [SerializeField] private GameObject caminoCazador;
     [SerializeField] private GameObject flecha;
     [SerializeField] private GameObject barraProgreso;
+    [SerializeField] private GameObject spawnFlecha;
     private GameObject presa;
 
     private int puntoActual;
@@ -134,7 +135,9 @@ public class fsmCazador : MonoBehaviour {
         rondar = false;
         nmesh.destination = transform.position;
         this.transform.LookAt(presa.transform);
-        GameObject miFlecha = Instantiate(flecha, this.transform.position, this.transform.rotation);
+        GameObject miFlecha = Instantiate(flecha, spawnFlecha.transform.position, Quaternion.identity);
+        miFlecha.transform.LookAt(presa.transform);
+        Physics.IgnoreCollision(miFlecha.gameObject.GetComponent<Collider>(), this.gameObject.GetComponent<Collider>());
         miFlecha.GetComponent<FlechaScript>().owner = this;
         miFlecha.GetComponent<FlechaScript>().jabali = presa;
         Debug.Log("PIUM PIUM!");
