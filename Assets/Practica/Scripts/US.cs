@@ -47,10 +47,10 @@ public class US : MonoBehaviour {
 
         gms = FindObjectOfType<GameManagerScript>();
         US_US = new UtilitySystemEngine(false);
-        //trabajarfsm_SubFSM = new StateMachineEngine(true);
+        trabajarfsm_SubFSM = new StateMachineEngine(true);
         
 
-        //Createtrabajarfsm_SubFSM();
+        Createtrabajarfsm_SubFSM();
         CreateUtilitySystem();
     }
     
@@ -60,7 +60,7 @@ public class US : MonoBehaviour {
         // Modify or add new Perceptions, see the guide for more
         
         // States
-        //NewState = trabajarfsm_SubFSM.CreateEntryState("New State ", NewStateAction);
+        NewState = trabajarfsm_SubFSM.CreateEntryState("New State ", NewStateAction);
         
         // Transitions
         
@@ -109,12 +109,12 @@ public class US : MonoBehaviour {
             fusionBeber,
         };
         
-        //fusionTrabajar = new MaxFusion(fusionTrabajarFactors);
+        fusionTrabajar = new MaxFusion(fusionTrabajarFactors);
         
         // ACTIONS
         comer = US_US.CreateUtilityAction("comer", comerAction, fusionComer);
         beber = US_US.CreateUtilityAction("beber", beberAction, fusionBeber);
-       // trabajarfsm = US_US.CreateSubBehaviour("trabajar_fsm", fusionTrabajar, trabajarfsm_SubFSM);
+        trabajarfsm = US_US.CreateSubBehaviour("trabajar_fsm", fusionTrabajar, trabajarfsm_SubFSM);
         
         
         // ExitPerceptions

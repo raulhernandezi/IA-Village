@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class fsmCazador : MonoBehaviour {
 
@@ -18,8 +19,19 @@ public class fsmCazador : MonoBehaviour {
     private State Disparar;
     private State CogerComida;
     private State DejarComida;
+
+
     private NavMeshAgent nmesh;
     public GameObject comedero;
+    private GameObject[] puntos;
+    [SerializeField] private GameObject caminoCazador;
+    [SerializeField] private GameObject flecha;
+    [SerializeField] private GameObject barraProgreso;
+    private GameObject presa;
+
+    private int puntoActual;
+    private bool rondar;
+    private bool recogiendo;
     
     //Place your variables here
 
@@ -30,7 +42,15 @@ public class fsmCazador : MonoBehaviour {
     {
         fsmCazador_FSM = new StateMachineEngine(false);
         nmesh = GetComponent<NavMeshAgent>();
-        nmesh.destination = comedero.transform.position + new Vector3(0f, 0f, 0.5f);
+        puntoActual = 0;
+        rondar = false;
+        recogiendo = false;
+
+        puntos = new GameObject[caminoCazador.transform.childCount];
+        for(int i = 0; i < caminoCazador.transform.childCount; i++)
+        {
+            puntos[i] = caminoCazador.transform.GetChild(i).gameObject;
+        }
 
         CreateStateMachine();
     }
@@ -66,6 +86,38 @@ public class fsmCazador : MonoBehaviour {
     // Update is called once per frame
     private void Update()
     {
+        if (rondar)
+        {
+            nmesh.destination = puntos[puntoActual].transform.position;
+            if (nmesh.transform.position.x == puntos[puntoActual].transform.position.x && nmesh.transform.position.z == puntos[puntoActual].transform.position.z)
+            {
+                Debug.Log("Llegue");
+                if (puntoActual == caminoCazador.transform.childCount - 1)
+                {
+                    Debug.Log("LLegue al ultimo punto, me vuelvo");
+                    puntoActual = 0;
+                }
+                else
+                {
+                    Debug.Log("Paso al siguiente punto");
+                    puntoActual++;
+                }
+            }
+        }
+
+        if (recogiendo)
+        {
+            barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
+            if(barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
+            {
+                Destroy(presa.gameObject);
+                barraProgreso.GetComponent<Slider>().value = 0;
+                barraProgreso.SetActive(false);
+                fsmCazador_FSM.Fire("IrADejarComida");
+                recogiendo = false;
+            }
+        }
+
         fsmCazador_FSM.Update();
     }
 
@@ -73,22 +125,49 @@ public class fsmCazador : MonoBehaviour {
     
     private void RondarAction()
     {
-        
+        Debug.Log("ESTADO RONDAR");
+        rondar = true;
     }
     
     private void DispararAction()
     {
-        
+        rondar = false;
+        nmesh.destination = transform.position;
+        this.transform.LookAt(presa.transform);
+        GameObject miFlecha = Instantiate(flecha, this.transform.position, this.transform.rotation);
+        miFlecha.GetComponent<FlechaScript>().owner = this;
+        miFlecha.GetComponent<FlechaScript>().jabali = presa;
+        Debug.Log("PIUM PIUM!");
     }
     
     private void CogerComidaAction()
     {
-        
+        Debug.Log("Yendo a por la comida");
+        nmesh.destination = presa.transform.position;
     }
     
     private void DejarComidaAction()
     {
-        
+        Debug.Log("Voy a dejar la comida");
     }
-    
+
+    public void AnimalEnRango(GameObject animal)
+    {
+        presa = animal;
+        fsmCazador_FSM.Fire("AnimalEnRango");
+    }
+
+    public void AnimalMuerto()
+    {
+        fsmCazador_FSM.Fire("IrAPorComida");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Jabali")
+        {
+            barraProgreso.SetActive(true);
+            recogiendo = true;
+        }
+    }
 }
