@@ -8,7 +8,7 @@ public class fsmCazador : MonoBehaviour {
 
     #region variables
 
-    private StateMachineEngine fsmCazador_FSM;
+    public StateMachineEngine fsmCazador_FSM;
     
 
     private PushPerception AnimalEnRangoPerception;
@@ -28,11 +28,14 @@ public class fsmCazador : MonoBehaviour {
     [SerializeField] private GameObject flecha;
     [SerializeField] private GameObject barraProgreso;
     [SerializeField] private GameObject spawnFlecha;
-    private GameObject presa;
+    [SerializeField] private Mesh meshCarne;
+    [SerializeField] private GameObject almacen;
+    public GameObject presa;
 
     private int puntoActual;
     private bool rondar;
     private bool recogiendo;
+    private bool entregando;
     
     //Place your variables here
 
@@ -46,6 +49,7 @@ public class fsmCazador : MonoBehaviour {
         puntoActual = 0;
         rondar = false;
         recogiendo = false;
+        entregando = false;
 
         puntos = new GameObject[caminoCazador.transform.childCount];
         for(int i = 0; i < caminoCazador.transform.childCount; i++)
@@ -119,6 +123,14 @@ public class fsmCazador : MonoBehaviour {
             }
         }
 
+        if (nmesh.destination.x == transform.position.x && nmesh.destination.z == transform.position.z  && entregando)
+        {
+            Debug.Log("He llegado a dejar la comida");
+            entregando = false;
+            GameManagerScript.comida += 5;
+            fsmCazador_FSM.Fire("RondarDeNuevo");
+        }
+
         fsmCazador_FSM.Update();
     }
 
@@ -135,11 +147,12 @@ public class fsmCazador : MonoBehaviour {
         rondar = false;
         nmesh.destination = transform.position;
         this.transform.LookAt(presa.transform);
-        GameObject miFlecha = Instantiate(flecha, spawnFlecha.transform.position, Quaternion.identity);
+        StartCoroutine("flechaTimer");
+        /*GameObject miFlecha = Instantiate(flecha, spawnFlecha.transform.position, Quaternion.identity);
         miFlecha.transform.LookAt(presa.transform);
         Physics.IgnoreCollision(miFlecha.gameObject.GetComponent<Collider>(), this.gameObject.GetComponent<Collider>());
         miFlecha.GetComponent<FlechaScript>().owner = this;
-        miFlecha.GetComponent<FlechaScript>().jabali = presa;
+        miFlecha.GetComponent<FlechaScript>().jabali = presa;*/
         Debug.Log("PIUM PIUM!");
     }
     
@@ -152,6 +165,9 @@ public class fsmCazador : MonoBehaviour {
     private void DejarComidaAction()
     {
         Debug.Log("Voy a dejar la comida");
+        //nmesh.destination = (new Vector3(almacen.transform.position.x, this.transform.position.y, almacen.transform.position.z + 20f));
+        nmesh.destination = almacen.transform.GetChild(0).GetComponent<Transform>().position;
+        entregando = true;
     }
 
     public void AnimalEnRango(GameObject animal)
@@ -167,10 +183,20 @@ public class fsmCazador : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Jabali")
+        Debug.Log("He tocado algo");
+        if (collision.gameObject.tag == "Jabali")
         {
+            Debug.Log("He recogido el jabali");
             barraProgreso.SetActive(true);
             recogiendo = true;
         }
+    }
+
+    public IEnumerator flechaTimer()
+    {
+        yield return new WaitForSeconds(2f);
+
+        //presa.gameObject.GetComponent<MeshFilter>().mesh = meshCarne;
+        AnimalMuerto();
     }
 }
