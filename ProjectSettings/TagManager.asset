@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Jabali
   - Flecha
+  - CaminoCazador
+  - Arbol
+  - ArbolPadre
+  - PuntoTalado
   layers:
   - Default
   - TransparentFX

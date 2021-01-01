@@ -24,7 +24,7 @@ public class fsmCazador : MonoBehaviour {
     private NavMeshAgent nmesh;
     public GameObject comedero;
     private GameObject[] puntos;
-    [SerializeField] private GameObject caminoCazador;
+    private GameObject caminoCazador;
     [SerializeField] private GameObject flecha;
     [SerializeField] private GameObject barraProgreso;
     [SerializeField] private GameObject spawnFlecha;
@@ -51,6 +51,7 @@ public class fsmCazador : MonoBehaviour {
         recogiendo = false;
         entregando = false;
 
+        caminoCazador = GameObject.FindGameObjectWithTag("CaminoCazador");
         puntos = new GameObject[caminoCazador.transform.childCount];
         for(int i = 0; i < caminoCazador.transform.childCount; i++)
         {
