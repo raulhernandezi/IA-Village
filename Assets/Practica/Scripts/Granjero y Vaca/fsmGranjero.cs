@@ -67,7 +67,7 @@ public class fsmGranjero : MonoBehaviour {
             {
                 if (vaca.GetComponent<fsmVaca>().puedeSerOrdeñada)
                 {
-                    Debug.Log("Hay una vaca para ordeñar");
+                    //Debug.Log("Hay una vaca para ordeñar");
                     vacaAOrdeñar = vaca;
                     fsmGranjero_FSM.Fire("VacaOrdeñable");
                     vacaAOrdeñar.GetComponent<fsmVaca>().MoverASitioOrdeño();
@@ -98,7 +98,7 @@ public class fsmGranjero : MonoBehaviour {
     
     private void EsperandoAction()
     {
-        Debug.Log("Entro a esperar");
+        //Debug.Log("Entro a esperar");
         navMesh.destination = corralSuyo.lugarEsperaGranjero.position;
     }
     
@@ -118,7 +118,7 @@ public class fsmGranjero : MonoBehaviour {
         //
         //Aqui hay que añadir que sume 1 a la leche del pueblo
         //
-        Debug.Log("Añado 1 a la LECHE rica");
+        //Debug.Log("Añado 1 a la LECHE rica");
         fsmGranjero_FSM.Fire("VacaHaSidoOrdeñada");
     }
 }

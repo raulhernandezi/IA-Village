@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<XMLElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>9b6f601d-6e18-422c-9231-5b554f5b4d4a</Id>
+  <elemType>FSM</elemType>
+  <secondType />
+  <thirdType />
+  <fourthType />
+  <name>fsmConstructor</name>
+  <windowPosX>489</windowPosX>
+  <windowPosY>285</windowPosY>
+  <nodes>
+    <XMLElement>
+      <Id>9bc2727d-f4bc-41e2-a73a-128aa5061ab5</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Entry</secondType>
+      <thirdType />
+      <fourthType />
+      <name>Esperando</name>
+      <windowPosX>563</windowPosX>
+      <windowPosY>402</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>4bf9fca6-956b-448b-8d79-7c66a5de5065</Id>
+      <elemType>StateNode</elemType>
+      <secondType>Default</secondType>
+      <thirdType />
+      <fourthType />
+      <name>Construyendo</name>
+      <windowPosX>1060</windowPosX>
+      <windowPosY>399</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+  </nodes>
+  <transitions>
+    <XMLElement>
+      <Id>aad23b77-f5ac-4e6b-b444-d4a9349292f8</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>ConstruccionFinalizada</name>
+      <windowPosX>841.5</windowPosX>
+      <windowPosY>452</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>9bc2727d-f4bc-41e2-a73a-128aa5061ab5</fromId>
+      <toId>4bf9fca6-956b-448b-8d79-7c66a5de5065</toId>
+      <perception>
+        <Id>8d1f0e7e-71f1-41fe-b67e-871c90153294</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>false</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+    <XMLElement>
+      <Id>c68a5049-b977-4c51-9e7b-aefa2d3a3c29</Id>
+      <elemType>TransitionGUI</elemType>
+      <secondType />
+      <thirdType />
+      <fourthType />
+      <name>HayMaderaYCimientos</name>
+      <windowPosX>771.5</windowPosX>
+      <windowPosY>382</windowPosY>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <fromId>4bf9fca6-956b-448b-8d79-7c66a5de5065</fromId>
+      <toId>9bc2727d-f4bc-41e2-a73a-128aa5061ab5</toId>
+      <perception>
+        <Id>e7dfe42b-3c40-42d0-99c8-cfd461a63f67</Id>
+        <type>Push</type>
+        <timerNumber>0</timerNumber>
+        <elemName />
+        <customName>CustomName</customName>
+        <stateName>Select a State</stateName>
+        <status>Succeed</status>
+        <openFoldout>false</openFoldout>
+      </perception>
+      <weight>1</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+  </transitions>
+  <isRandom>false</isRandom>
+  <isInfinite>false</isInfinite>
+  <delayTime>0</delayTime>
+  <Nloops>0</Nloops>
+  <index>0</index>
+  <variableMin>0</variableMin>
+  <variableMax>0</variableMax>
+  <slope>0</slope>
+  <exp>0</exp>
+  <displX>0</displX>
+  <displY>0</displY>
+  <weight>0</weight>
+  <isExit>false</isExit>
+</XMLElement>

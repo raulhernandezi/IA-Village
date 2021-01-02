@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
     //RECURSOS
     public static int leche;
     public static int comida;
+    public int madera;
 
     public float hay_leche;
     public float hay_comida;

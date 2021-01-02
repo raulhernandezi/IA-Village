@@ -33,7 +33,7 @@ public class fsmVaca : MonoBehaviour {
     public float hambre;
     public int bienAlimentada;
     public int ordeñable;
-    private float ratioPerdidaHambrePorSegundo = 10;
+    private float ratioPerdidaHambrePorSegundo = 0.5f;
 
     public bool puedeSerOrdeñada;
 
@@ -139,7 +139,7 @@ public class fsmVaca : MonoBehaviour {
     
     private void EsperaraserordeñadaAction()
     {
-        Debug.Log("Espero a ser ordeñada");
+        //Debug.Log("Espero a ser ordeñada");
         puedeSerOrdeñada = true;
         posicionRandom = Random.insideUnitSphere * 12;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
@@ -147,7 +147,7 @@ public class fsmVaca : MonoBehaviour {
     
     private void OrdeñandoAction()
     {
-        Debug.Log("Me ordeñan");
+        //Debug.Log("Me ordeñan");
         StartCoroutine(OrdeñarTimer());
     }
     
@@ -166,9 +166,8 @@ public class fsmVaca : MonoBehaviour {
     {
         yield return new WaitForSeconds(3);
         hambre = 100;
-        //ordeñable += Random.Range(10, 30);
-        ordeñable += 100;
-        bienAlimentada += 0; //Deberia ser 1
+        ordeñable += Random.Range(10, 30);
+        bienAlimentada += 1; //Deberia ser 1
         if(ordeñable >= 100)
         {
             fsmVaca_FSM.Fire("PuedeSerOrdeñada");

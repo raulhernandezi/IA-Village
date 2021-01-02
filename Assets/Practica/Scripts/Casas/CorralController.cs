@@ -24,12 +24,6 @@ public class CorralController : MonoBehaviour
         pasto = 100;
     }
 
-
-    void Update()
-    {
-        
-    }
-
     public void AñadirVaca(GameObject vaca)
     {
         vacas.Add(vaca);
