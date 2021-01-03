@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<XMLElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>bf431048-38cc-406e-bef3-bc64f2e87d01</Id>
+  <elemType>BehaviourTree</elemType>
+  <secondType />
+  <thirdType />
+  <fourthType />
+  <name>AgricultorBT</name>
+  <windowPosX>67</windowPosX>
+  <windowPosY>44</windowPosY>
+  <nodes>
+    <XMLElement>
+      <Id>6ac2d7ab-b3be-4e70-89b3-74b04a4b463a</Id>
+      <elemType>BehaviourNode</elemType>
+      <secondType>Selector</secondType>
+      <thirdType />
+      <fourthType />
+      <name>PlantarOrCosechar</name>
+      <windowPosX>649</windowPosX>
+      <windowPosY>9</windowPosY>
+      <nodes>
+        <XMLElement>
+          <Id>800ae00b-f036-48ca-a179-d1dd9e8ea88d</Id>
+          <elemType>BehaviourNode</elemType>
+          <secondType>Sequence</secondType>
+          <thirdType />
+          <fourthType />
+          <name>SecuenciaSembrar</name>
+          <windowPosX>283</windowPosX>
+          <windowPosY>179</windowPosY>
+          <nodes>
+            <XMLElement>
+              <Id>a99e5b46-3799-4141-8667-38637390d246</Id>
+              <elemType>BehaviourNode</elemType>
+              <secondType>Leaf</secondType>
+              <thirdType />
+              <fourthType />
+              <name>CampoVacio</name>
+              <windowPosX>70</windowPosX>
+              <windowPosY>324</windowPosY>
+              <nodes />
+              <isRandom>false</isRandom>
+              <isInfinite>false</isInfinite>
+              <delayTime>0</delayTime>
+              <Nloops>0</Nloops>
+              <index>1</index>
+              <variableMin>0</variableMin>
+              <variableMax>0</variableMax>
+              <slope>0</slope>
+              <exp>0</exp>
+              <displX>0</displX>
+              <displY>0</displY>
+              <weight>0</weight>
+              <isExit>false</isExit>
+            </XMLElement>
+            <XMLElement>
+              <Id>da3e2eb2-bd56-40bb-b726-8978848496d7</Id>
+              <elemType>BehaviourNode</elemType>
+              <secondType>Leaf</secondType>
+              <thirdType />
+              <fourthType />
+              <name>Plantar</name>
+              <windowPosX>340</windowPosX>
+              <windowPosY>323</windowPosY>
+              <nodes />
+              <isRandom>false</isRandom>
+              <isInfinite>false</isInfinite>
+              <delayTime>0</delayTime>
+              <Nloops>0</Nloops>
+              <index>2</index>
+              <variableMin>0</variableMin>
+              <variableMax>0</variableMax>
+              <slope>0</slope>
+              <exp>0</exp>
+              <displX>0</displX>
+              <displY>0</displY>
+              <weight>0</weight>
+              <isExit>false</isExit>
+            </XMLElement>
+          </nodes>
+          <isRandom>false</isRandom>
+          <isInfinite>false</isInfinite>
+          <delayTime>0</delayTime>
+          <Nloops>0</Nloops>
+          <index>1</index>
+          <variableMin>0</variableMin>
+          <variableMax>0</variableMax>
+          <slope>0</slope>
+          <exp>0</exp>
+          <displX>0</displX>
+          <displY>0</displY>
+          <weight>0</weight>
+          <isExit>false</isExit>
+        </XMLElement>
+        <XMLElement>
+          <Id>f363b335-b95c-4e95-9697-4199f906a52a</Id>
+          <elemType>BehaviourNode</elemType>
+          <secondType>Sequence</secondType>
+          <thirdType />
+          <fourthType />
+          <name>SecuenciaCosechar</name>
+          <windowPosX>663</windowPosX>
+          <windowPosY>177</windowPosY>
+          <nodes>
+            <XMLElement>
+              <Id>3576e06e-ed14-43ec-bd15-44b4562683a1</Id>
+              <elemType>BehaviourNode</elemType>
+              <secondType>Leaf</secondType>
+              <thirdType />
+              <fourthType />
+              <name>CampoCrecido</name>
+              <windowPosX>576</windowPosX>
+              <windowPosY>319</windowPosY>
+              <nodes />
+              <isRandom>false</isRandom>
+              <isInfinite>false</isInfinite>
+              <delayTime>0</delayTime>
+              <Nloops>0</Nloops>
+              <index>1</index>
+              <variableMin>0</variableMin>
+              <variableMax>0</variableMax>
+              <slope>0</slope>
+              <exp>0</exp>
+              <displX>0</displX>
+              <displY>0</displY>
+              <weight>0</weight>
+              <isExit>false</isExit>
+            </XMLElement>
+            <XMLElement>
+              <Id>26352a34-90c3-479b-94d4-c678265a0b51</Id>
+              <elemType>BehaviourNode</elemType>
+              <secondType>Leaf</secondType>
+              <thirdType />
+              <fourthType />
+              <name>Recoger</name>
+              <windowPosX>763</windowPosX>
+              <windowPosY>319</windowPosY>
+              <nodes />
+              <isRandom>false</isRandom>
+              <isInfinite>false</isInfinite>
+              <delayTime>0</delayTime>
+              <Nloops>0</Nloops>
+              <index>2</index>
+              <variableMin>0</variableMin>
+              <variableMax>0</variableMax>
+              <slope>0</slope>
+              <exp>0</exp>
+              <displX>0</displX>
+              <displY>0</displY>
+              <weight>0</weight>
+              <isExit>false</isExit>
+            </XMLElement>
+          </nodes>
+          <isRandom>false</isRandom>
+          <isInfinite>false</isInfinite>
+          <delayTime>0</delayTime>
+          <Nloops>0</Nloops>
+          <index>2</index>
+          <variableMin>0</variableMin>
+          <variableMax>0</variableMax>
+          <slope>0</slope>
+          <exp>0</exp>
+          <displX>0</displX>
+          <displY>0</displY>
+          <weight>0</weight>
+          <isExit>false</isExit>
+        </XMLElement>
+        <XMLElement>
+          <Id>46cad9b5-30cb-4489-b902-28c237e0a8bf</Id>
+          <elemType>BehaviourNode</elemType>
+          <secondType>Leaf</secondType>
+          <thirdType />
+          <fourthType />
+          <name>Parar</name>
+          <windowPosX>942</windowPosX>
+          <windowPosY>179</windowPosY>
+          <nodes />
+          <isRandom>false</isRandom>
+          <isInfinite>false</isInfinite>
+          <delayTime>0</delayTime>
+          <Nloops>0</Nloops>
+          <index>3</index>
+          <variableMin>0</variableMin>
+          <variableMax>0</variableMax>
+          <slope>0</slope>
+          <exp>0</exp>
+          <displX>0</displX>
+          <displY>0</displY>
+          <weight>0</weight>
+          <isExit>false</isExit>
+        </XMLElement>
+      </nodes>
+      <isRandom>false</isRandom>
+      <isInfinite>false</isInfinite>
+      <delayTime>0</delayTime>
+      <Nloops>0</Nloops>
+      <index>0</index>
+      <variableMin>0</variableMin>
+      <variableMax>0</variableMax>
+      <slope>0</slope>
+      <exp>0</exp>
+      <displX>0</displX>
+      <displY>0</displY>
+      <weight>0</weight>
+      <isExit>false</isExit>
+    </XMLElement>
+  </nodes>
+  <transitions />
+  <isRandom>false</isRandom>
+  <isInfinite>false</isInfinite>
+  <delayTime>0</delayTime>
+  <Nloops>0</Nloops>
+  <index>0</index>
+  <variableMin>0</variableMin>
+  <variableMax>0</variableMax>
+  <slope>0</slope>
+  <exp>0</exp>
+  <displX>0</displX>
+  <displY>0</displY>
+  <weight>0</weight>
+  <isExit>false</isExit>
+</XMLElement>

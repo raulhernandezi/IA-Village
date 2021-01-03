@@ -10,6 +10,8 @@ TagManager:
   - Arbol
   - ArbolPadre
   - PuntoTalado
+  - Parcela
+  - ParcelasPadre
   layers:
   - Default
   - TransparentFX
