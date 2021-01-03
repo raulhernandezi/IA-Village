@@ -23,7 +23,7 @@ public class fsmConstructor : MonoBehaviour {
     [SerializeField] public GameObject casaCazadorPrefab;
     [SerializeField] public GameObject casaAgricultorPrefab;
     public CimientosControler cimientosController;
-    public CasaConstructor hogar;
+    public CasaController hogar;
 
     public GameManagerScript gameManager;
 
@@ -104,7 +104,7 @@ public class fsmConstructor : MonoBehaviour {
     
     private void EsperandoAction()
     {
-        navMesh.destination = hogar.spawnConstructor.position;
+        navMesh.destination = hogar.spawnPlace.position;
     }
     
     private void ConstruyendoAction()

@@ -36,8 +36,10 @@ public class fsmCazador : MonoBehaviour {
     private bool rondar;
     private bool recogiendo;
     private bool entregando;
-    
+
     //Place your variables here
+
+    public GameManagerScript gameManager;
 
     #endregion variables
 
@@ -50,6 +52,7 @@ public class fsmCazador : MonoBehaviour {
         rondar = false;
         recogiendo = false;
         entregando = false;
+        gameManager = FindObjectOfType<GameManagerScript>();
 
         caminoCazador = GameObject.FindGameObjectWithTag("CaminoCazador");
         puntos = new GameObject[caminoCazador.transform.childCount];
@@ -128,7 +131,7 @@ public class fsmCazador : MonoBehaviour {
         {
             Debug.Log("He llegado a dejar la comida");
             entregando = false;
-            GameManagerScript.comida += 5;
+            gameManager.comida += 5;
             fsmCazador_FSM.Fire("RondarDeNuevo");
         }
 

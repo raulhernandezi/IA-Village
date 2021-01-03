@@ -127,7 +127,7 @@ public class fsmVaca : MonoBehaviour {
     
     private void ComerAction()
     {
-        navMesh.destination = new Vector3(corral.comedero.transform.position.x, transform.position.y, corral.comedero.transform.position.z + 4);
+        navMesh.destination = new Vector3(corral.lugarComer.position.x, transform.position.y, corral.lugarComer.position.z + 4);
         comiendo = true;
     }
     
@@ -168,6 +168,7 @@ public class fsmVaca : MonoBehaviour {
         hambre = 100;
         ordeñable += Random.Range(10, 30);
         bienAlimentada += 1; //Deberia ser 1
+        corral.ComerPasto();
         if(ordeñable >= 100)
         {
             fsmVaca_FSM.Fire("PuedeSerOrdeñada");

@@ -8,17 +8,21 @@ public class GameManagerScript : MonoBehaviour
 {
 
     //RECURSOS
-    public static int leche;
-    public static int comida;
+    public int leche;
+    public int comida;
     public int madera;
-
+    public int pasto;
     public float hay_leche;
     public float hay_comida;
 
     [SerializeField] private TextMeshProUGUI txt_Comida;
     [SerializeField] private TextMeshProUGUI txt_Leche;
+    [SerializeField] private TextMeshProUGUI txt_Madera;
+    [SerializeField] private TextMeshProUGUI txt_Pasto;
 
-
+    [SerializeField] public Transform almacenDropPlace;
+    [SerializeField] public Transform herreriaPlace;
+    [SerializeField] public Transform restaurantePlace;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,8 @@ public class GameManagerScript : MonoBehaviour
         hay_comida = 0;
         txt_Comida.text = "Comida: " + comida;
         txt_Leche.text = "Leche: " + leche;
+        txt_Madera.text = "Madera: " + madera;
+        txt_Pasto.text = "Pasto: " + pasto;
     }
 
     // Update is called once per frame
@@ -53,5 +59,7 @@ public class GameManagerScript : MonoBehaviour
 
         txt_Comida.text = "Comida: " + comida;
         txt_Leche.text = "Leche: " + leche;
+        txt_Madera.text = "Madera: " + madera;
+        txt_Pasto.text = "Pasto: " + pasto;
     }
 }

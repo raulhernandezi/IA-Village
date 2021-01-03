@@ -7,10 +7,13 @@ public class CorralController : MonoBehaviour
     public List<GameObject> vacas;
     [SerializeField] private GameObject vacaPrefab;
     [SerializeField] private GameObject granjeroPrefab;
-    [SerializeField] public Transform comedero;
     [SerializeField] public Transform lugarOrdeñoVaca;
     [SerializeField] public Transform lugarOrdeñoGranjero;
     [SerializeField] public Transform lugarEsperaGranjero;
+    [SerializeField] public Transform lugarComer;
+    [SerializeField] public Mesh comederoLleno;
+    [SerializeField] public Mesh comederoVacio;
+    [SerializeField] public GameObject comederoGO;
     public GameObject propietario;
     public int pasto;
     
@@ -22,6 +25,22 @@ public class CorralController : MonoBehaviour
         propietario = Instantiate(granjeroPrefab, transform.position + new Vector3(5, 0.5f, 0), Quaternion.identity);
         propietario.GetComponent<fsmGranjero>().corralSuyo = this;
         pasto = 100;
+    }
+    
+
+    public void AddPasto(int cantidad)
+    {
+        pasto += cantidad;
+        comederoGO.GetComponent<MeshFilter>().sharedMesh = comederoLleno;
+    }
+
+    public void ComerPasto()
+    {
+        pasto--;
+        if(pasto == 0)
+        {
+            comederoGO.GetComponent<MeshFilter>().sharedMesh = comederoVacio;
+        }
     }
 
     public void AñadirVaca(GameObject vaca)
