@@ -72,7 +72,7 @@ public class fsmConstructor : MonoBehaviour {
         {
             //Aqui deberia estar comprobando si hay mas de 20 de madera en el gamemanager, pero como de momento no hay, voy a simularlo
             //haciendo una variable madera que vaya creciendo poco a poco con el tiempo
-            madera += ratioCrecimientoMadera * Time.deltaTime;
+            //madera += ratioCrecimientoMadera * Time.deltaTime;
             if(madera >= 20)
             {
                 for(int i = 0; i < cimientosController.cimientos.Length; i++)
@@ -90,7 +90,7 @@ public class fsmConstructor : MonoBehaviour {
         }
         if(fsmConstructor_FSM.actualState == Construyendo)
         {
-            if(navMesh.destination.x == transform.position.x && navMesh.destination.z == transform.position.z && llegando)
+            if((int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z && llegando)
             {
                 llegando = false;
                 Debug.Log("Comienzo a construir");

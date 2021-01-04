@@ -95,12 +95,13 @@ public class fsmVaca : MonoBehaviour {
         hambre -= ratioPerdidaHambrePorSegundo * Time.deltaTime;
         if(hambre <= 30 && fsmVaca_FSM.actualState == Esperando)
         {
-            if(corral.pasto >= 1)
+            
+            if (corral.pasto >= 1)
             {
                 fsmVaca_FSM.Fire("TengoHambreYHayPasto");
             }
         }
-        if(fsmVaca_FSM.actualState == Comer && navMesh.destination.x == transform.position.x && navMesh.destination.z == transform.position.z)
+        if(fsmVaca_FSM.actualState == Comer && (int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
         {
             if (comiendo)
             {
@@ -108,7 +109,7 @@ public class fsmVaca : MonoBehaviour {
                 StartCoroutine(ComerTimer());
             }
         }
-        if(fsmVaca_FSM.actualState == Esperaraserordeñada && navMesh.destination.x == transform.position.x && navMesh.destination.z == transform.position.z)
+        if(fsmVaca_FSM.actualState == Esperaraserordeñada && (int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
         {
             corral.propietario.GetComponent<fsmGranjero>().vacaLista = true;
         }

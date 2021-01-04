@@ -68,7 +68,7 @@ public class fsmAgricultor : MonoBehaviour {
     // Update is called once per frame
     private void Update()
     {
-        if (plantando && nmesh.destination.x == transform.position.x && nmesh.destination.z == transform.position.z)
+        if (plantando && (int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z)
         {
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
@@ -85,7 +85,7 @@ public class fsmAgricultor : MonoBehaviour {
             }
         }
 
-        if (cosechando && nmesh.destination.x == transform.position.x && nmesh.destination.z == transform.position.z)
+        if (cosechando && (int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z)
         {
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)

@@ -26,6 +26,8 @@ public class fsmLeñador : MonoBehaviour {
     public int arbolDestino;
     private GameObject[] arboles;
 
+    public CasaController hogar;
+
     private bool yendoTalar;
     private bool talando;
     private int estadoHacha;
@@ -80,7 +82,7 @@ public class fsmLeñador : MonoBehaviour {
     // Update is called once per frame
     private void Update()
     {
-        if (yendoTalar && nmesh.destination.x == transform.position.x && nmesh.destination.z == transform.position.z)
+        if (yendoTalar && (int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z)
         {
             Debug.Log("He llegado al arbol para talar");
             fsmLeñador_FSM.Fire("ArbolEncontrado");

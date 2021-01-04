@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6223334801315679978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: 0, z: 0}
+  m_LocalPosition: {x: 0.727, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 699246596927806678}
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 9155176262692369813}
   - component: {fileID: 4419089377514136458}
   - component: {fileID: 1745885179706346559}
+  - component: {fileID: 407916975466274190}
   m_Layer: 0
   m_Name: Parcela
   m_TagString: Parcela
@@ -57,14 +58,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7301584333379510550}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.06, z: 0}
-  m_LocalScale: {x: 10, y: 0.07, z: 10}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 8, y: 1, z: 8}
   m_Children:
   - {fileID: 6792164320100129291}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &8816039588391386887
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -144,3 +145,19 @@ MonoBehaviour:
   meshLibre: {fileID: 2100000, guid: ffe33dfadf363db4eb4fc5e5da0b4ffc, type: 2}
   meshPlantado: {fileID: 2100000, guid: e68d55909439c3c41a881463ce2a7fe7, type: 2}
   meshCrecido: {fileID: 2100000, guid: 0971ddc3dcc3f514bb964d389799c7dc, type: 2}
+--- !u!208 &407916975466274190
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7301584333379510550}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

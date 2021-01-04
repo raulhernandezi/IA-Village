@@ -24,7 +24,7 @@ public class CorralController : MonoBehaviour
         AñadirVaca(vacaPrimera);
         propietario = Instantiate(granjeroPrefab, transform.position + new Vector3(5, 0.5f, 0), Quaternion.identity);
         propietario.GetComponent<fsmGranjero>().corralSuyo = this;
-        pasto = 100;
+        pasto = 6;
     }
     
 

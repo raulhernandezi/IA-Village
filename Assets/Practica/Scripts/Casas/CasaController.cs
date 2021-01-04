@@ -11,7 +11,17 @@ public class CasaController : MonoBehaviour
     void Start()
     {
         propietario = Instantiate(CharacterPrefab, spawnPlace.position, spawnPlace.rotation);
-        propietario.GetComponent<fsmConstructor>().hogar = this;
+        if (propietario.GetComponent<fsmLeñador>() != null) {
+            propietario.GetComponent<fsmLeñador>().hogar = this;
+        }
+        else if(propietario.GetComponent<fsmCazador>() != null)
+        {
+            propietario.GetComponent<fsmCazador>().hogar = this;
+        }
+        else
+        {
+            propietario.GetComponent<fsmConstructor>().hogar = this;
+        }
     }
     
 }

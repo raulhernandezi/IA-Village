@@ -35,7 +35,7 @@ public class CogerComida : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("He tocado algo");
+        //Debug.Log("He tocado algo");
         if (collision.gameObject.tag == "Jabali")
         {
             Debug.Log("He recogido el jabali");

@@ -81,7 +81,7 @@ public class fsmGranjero : MonoBehaviour {
         }
         if(fsmGranjero_FSM.actualState == OrdeñarVaca)
         {
-            if(navMesh.destination.x == transform.position.x && navMesh.destination.z == transform.position.z)
+            if((int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
             {
                 if (vacaLista)
                 {

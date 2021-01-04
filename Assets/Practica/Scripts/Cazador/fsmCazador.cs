@@ -29,8 +29,9 @@ public class fsmCazador : MonoBehaviour {
     [SerializeField] private GameObject barraProgreso;
     [SerializeField] private GameObject spawnFlecha;
     [SerializeField] private Mesh meshCarne;
-    [SerializeField] private GameObject almacen;
-    public GameObject presa;
+    [HideInInspector] public GameObject presa;
+
+    public CasaController hogar;
 
     private int puntoActual;
     private bool rondar;
@@ -98,17 +99,17 @@ public class fsmCazador : MonoBehaviour {
         if (rondar)
         {
             nmesh.destination = puntos[puntoActual].transform.position;
-            if (nmesh.transform.position.x == puntos[puntoActual].transform.position.x && nmesh.transform.position.z == puntos[puntoActual].transform.position.z)
+            if ((int)transform.position.x == (int)puntos[puntoActual].transform.position.x && (int)transform.position.z == (int)puntos[puntoActual].transform.position.z)
             {
-                Debug.Log("Llegue");
+                //Debug.Log("Llegue");
                 if (puntoActual == caminoCazador.transform.childCount - 1)
                 {
-                    Debug.Log("LLegue al ultimo punto, me vuelvo");
+                    //Debug.Log("LLegue al ultimo punto, me vuelvo");
                     puntoActual = 0;
                 }
                 else
                 {
-                    Debug.Log("Paso al siguiente punto");
+                    //Debug.Log("Paso al siguiente punto");
                     puntoActual++;
                 }
             }
@@ -127,9 +128,9 @@ public class fsmCazador : MonoBehaviour {
             }
         }
 
-        if (nmesh.destination.x == transform.position.x && nmesh.destination.z == transform.position.z  && entregando)
+        if ((int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z  && entregando)
         {
-            Debug.Log("He llegado a dejar la comida");
+            //Debug.Log("He llegado a dejar la comida");
             entregando = false;
             gameManager.comida += 5;
             fsmCazador_FSM.Fire("RondarDeNuevo");
@@ -142,7 +143,7 @@ public class fsmCazador : MonoBehaviour {
     
     private void RondarAction()
     {
-        Debug.Log("ESTADO RONDAR");
+        //Debug.Log("ESTADO RONDAR");
         rondar = true;
     }
     
@@ -157,20 +158,20 @@ public class fsmCazador : MonoBehaviour {
         Physics.IgnoreCollision(miFlecha.gameObject.GetComponent<Collider>(), this.gameObject.GetComponent<Collider>());
         miFlecha.GetComponent<FlechaScript>().owner = this;
         miFlecha.GetComponent<FlechaScript>().jabali = presa;*/
-        Debug.Log("PIUM PIUM!");
+        //Debug.Log("PIUM PIUM!");
     }
     
     private void CogerComidaAction()
     {
-        Debug.Log("Yendo a por la comida");
+        //Debug.Log("Yendo a por la comida");
         nmesh.destination = presa.transform.position;
     }
     
     private void DejarComidaAction()
     {
-        Debug.Log("Voy a dejar la comida");
+        //Debug.Log("Voy a dejar la comida");
         //nmesh.destination = (new Vector3(almacen.transform.position.x, this.transform.position.y, almacen.transform.position.z + 20f));
-        nmesh.destination = almacen.transform.GetChild(0).GetComponent<Transform>().position;
+        nmesh.destination = gameManager.almacenDropPlace.position;
         entregando = true;
     }
 
@@ -187,10 +188,10 @@ public class fsmCazador : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("He tocado algo");
+        //Debug.Log("He tocado algo");
         if (collision.gameObject.tag == "Jabali")
         {
-            Debug.Log("He recogido el jabali");
+            //Debug.Log("He recogido el jabali");
             barraProgreso.SetActive(true);
             recogiendo = true;
         }
