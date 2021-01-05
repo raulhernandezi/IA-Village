@@ -114,7 +114,7 @@ public class fsmCazador : MonoBehaviour {
                 }
             }
         }
-
+        /*
         if (recogiendo)
         {
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
@@ -126,17 +126,22 @@ public class fsmCazador : MonoBehaviour {
                 fsmCazador_FSM.Fire("IrADejarComida");
                 recogiendo = false;
             }
-        }
+        }*/
 
         if ((int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z  && entregando)
         {
             //Debug.Log("He llegado a dejar la comida");
             entregando = false;
-            gameManager.comida += 5;
+            gameManager.comida += 2;
             fsmCazador_FSM.Fire("RondarDeNuevo");
         }
 
         fsmCazador_FSM.Update();
+    }
+
+    protected void LateUpdate()
+    {
+        transform.localEulerAngles = new Vector3(-90, transform.localEulerAngles.y, 0);
     }
 
     // Create your desired actions
@@ -153,12 +158,6 @@ public class fsmCazador : MonoBehaviour {
         nmesh.destination = transform.position;
         this.transform.LookAt(presa.transform);
         StartCoroutine("flechaTimer");
-        /*GameObject miFlecha = Instantiate(flecha, spawnFlecha.transform.position, Quaternion.identity);
-        miFlecha.transform.LookAt(presa.transform);
-        Physics.IgnoreCollision(miFlecha.gameObject.GetComponent<Collider>(), this.gameObject.GetComponent<Collider>());
-        miFlecha.GetComponent<FlechaScript>().owner = this;
-        miFlecha.GetComponent<FlechaScript>().jabali = presa;*/
-        //Debug.Log("PIUM PIUM!");
     }
     
     private void CogerComidaAction()
@@ -170,7 +169,6 @@ public class fsmCazador : MonoBehaviour {
     private void DejarComidaAction()
     {
         //Debug.Log("Voy a dejar la comida");
-        //nmesh.destination = (new Vector3(almacen.transform.position.x, this.transform.position.y, almacen.transform.position.z + 20f));
         nmesh.destination = gameManager.almacenDropPlace.position;
         entregando = true;
     }
@@ -185,17 +183,17 @@ public class fsmCazador : MonoBehaviour {
     {
         fsmCazador_FSM.Fire("IrAPorComida");
     }
-
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("He tocado algo");
         if (collision.gameObject.tag == "Jabali")
         {
-            //Debug.Log("He recogido el jabali");
+            Debug.Log("He recogido el jabali");
             barraProgreso.SetActive(true);
             recogiendo = true;
         }
-    }
+    }*/
 
     public IEnumerator flechaTimer()
     {

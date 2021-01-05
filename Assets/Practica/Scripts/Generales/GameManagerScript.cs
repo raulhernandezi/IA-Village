@@ -21,11 +21,13 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txt_Pasto;
     [SerializeField] private GameObject arbolPrefab;
     [SerializeField] public GameObject arbolPadre;
+    [SerializeField] public GameObject jabaliPrefab;
 
     [SerializeField] public Transform almacenDropPlace;
     [SerializeField] public Transform herreriaPlace;
     [SerializeField] public Transform restaurantePlace;
     [SerializeField] public Transform[] ZonasSpawnArboles;
+    [SerializeField] public Vector3[] ZonasSpawnJabalis;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +44,8 @@ public class GameManagerScript : MonoBehaviour
         txt_Pasto.text = "Pasto: " + pasto;
         for(int i = 0; i < 20; i++)
         {
-            //Debug.Log("Soy el arbol " + i);
             SpawnearArbol();
+            SpawnearJabali();
         }
     }
 
@@ -91,5 +93,25 @@ public class GameManagerScript : MonoBehaviour
         //Debug.Log("Spawneo en el sector " + zonaRandom + " cuyo centro es " + zona.position.x + "," + zona.position.z);
         Vector3 spawnPos = new Vector3(posX, 0, posZ);
         Instantiate(arbolPrefab, spawnPos, Quaternion.identity, arbolPadre.transform);
+    }
+
+    public void SpawnearJabali()
+    {
+        int zonaRandom = Random.Range(0, 3);
+        Vector3 zona = ZonasSpawnJabalis[zonaRandom];
+        float posX = 0, posZ = 0;
+        if (zonaRandom < 2)
+        {
+            posX = zona.x + Random.Range(-50, 50);
+            posZ = zona.z + Random.Range(-300, 300);
+        }
+        else
+        {
+            posX = zona.x + Random.Range(-200, 200);
+            posZ = zona.z + Random.Range(-50, 50);
+        }
+        //Debug.Log("Spawneo en el sector " + zonaRandom + " cuyo centro es " + zona.position.x + "," + zona.position.z);
+        Vector3 spawnPos = new Vector3(posX, 1, posZ);
+        Instantiate(jabaliPrefab, spawnPos, Quaternion.identity);
     }
 }

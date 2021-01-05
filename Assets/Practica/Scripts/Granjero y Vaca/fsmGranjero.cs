@@ -23,7 +23,8 @@ public class fsmGranjero : MonoBehaviour {
     public CorralController corralSuyo;
     [SerializeField] private NavMeshAgent navMesh;
     private GameObject vacaAOrdeñar;
-
+    public GameManagerScript gameManager;
+    public int pastoRecogido;
     public bool vacaLista;
 
     #endregion variables
@@ -63,20 +64,41 @@ public class fsmGranjero : MonoBehaviour {
     {
         if(fsmGranjero_FSM.actualState == Esperando)
         {
-            foreach(GameObject vaca in corralSuyo.vacas)
+            if(corralSuyo.pasto == 0)
             {
-                if (vaca.GetComponent<fsmVaca>().puedeSerOrdeñada)
+                fsmGranjero_FSM.Fire("ComederoVacio");
+            }
+            else
+            {
+                foreach (GameObject vaca in corralSuyo.vacas)
                 {
-                    //Debug.Log("Hay una vaca para ordeñar");
-                    vacaAOrdeñar = vaca;
-                    fsmGranjero_FSM.Fire("VacaOrdeñable");
-                    vacaAOrdeñar.GetComponent<fsmVaca>().MoverASitioOrdeño();
-                    navMesh.destination = new Vector3(
-                        corralSuyo.lugarOrdeñoGranjero.position.x, 
-                        transform.position.y, 
-                        corralSuyo.lugarOrdeñoGranjero.position.z);
-                    break;
+                    if (vaca.GetComponent<fsmVaca>().puedeSerOrdeñada)
+                    {
+                        //Debug.Log("Hay una vaca para ordeñar");
+                        vacaAOrdeñar = vaca;
+                        fsmGranjero_FSM.Fire("VacaOrdeñable");
+                        vacaAOrdeñar.GetComponent<fsmVaca>().MoverASitioOrdeño();
+                        navMesh.destination = new Vector3(
+                            corralSuyo.lugarOrdeñoGranjero.position.x,
+                            transform.position.y,
+                            corralSuyo.lugarOrdeñoGranjero.position.z);
+                        break;
+                    }
                 }
+            }
+        }
+        if(fsmGranjero_FSM.actualState == RellenarComedero)
+        {
+            if((int)transform.position.x == (int)gameManager.almacenDropPlace.position.x && (int)transform.position.z == (int)gameManager.almacenDropPlace.position.z)
+            {
+                pastoRecogido = gameManager.pasto / 2;
+                gameManager.pasto -= pastoRecogido;
+                navMesh.destination = corralSuyo.lugarComer.position;
+            }
+            if((int)transform.position.x == (int)corralSuyo.lugarComer.position.x && (int)transform.position.z == (int)corralSuyo.lugarComer.position.z)
+            {
+                corralSuyo.AddPasto(pastoRecogido);
+                fsmGranjero_FSM.Fire("ComederoHaSidoLlenado");
             }
         }
         if(fsmGranjero_FSM.actualState == OrdeñarVaca)
@@ -104,8 +126,7 @@ public class fsmGranjero : MonoBehaviour {
     
     private void RellenarComederoAction()
     {
-        //Aqui falta hacer que detecte en el Update cuando hay poca comida en el comedero y que vaya al almacen a recoger todo el PASTO
-        //que haya para traerlo al comedero
+        navMesh.destination = gameManager.almacenDropPlace.position;
     }
     
     private void OrdeñarVacaAction()
@@ -115,10 +136,7 @@ public class fsmGranjero : MonoBehaviour {
     public IEnumerator OrdeñarTimer()
     {
         yield return new WaitForSeconds(5);
-        //
-        //Aqui hay que añadir que sume 1 a la leche del pueblo
-        //
-        //Debug.Log("Añado 1 a la LECHE rica");
+        gameManager.leche++;
         fsmGranjero_FSM.Fire("VacaHaSidoOrdeñada");
     }
 }
