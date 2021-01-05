@@ -91,13 +91,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6859888741538255094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 068cec5784622614abe57fccfd505515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comedero: {fileID: 0}
-  bebedero: {fileID: 0}
+  hambre: 0
+  sed: 0
+  hay_hambre: 0
+  hay_sed: 0
+  seTrabaja: 0
+  barraProgreso: {fileID: 6859888741874654566}
+  casa: {fileID: 0}
 --- !u!195 &6859888741538255093
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -127,7 +132,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6859888741538255094}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acc65fa27e2d7e0498eb3fe81a8f827a, type: 3}
   m_Name: 
