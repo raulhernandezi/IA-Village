@@ -167,7 +167,6 @@ public class fsmLeñador : MonoBehaviour {
         for (int i = 0; i < arbolPadre.transform.childCount; i++)
         {
             arboles[i] = arbolPadre.transform.GetChild(i).gameObject;
-            
         }
         
         for (int i = 0; i < arbolPadre.transform.childCount; i++)

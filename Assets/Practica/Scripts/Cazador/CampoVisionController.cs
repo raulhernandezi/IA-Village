@@ -8,7 +8,7 @@ public class CampoVisionController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Jabali")
+        if (collision.gameObject.tag == "Jabali" && cazador.fsmCazador_FSM.actualState.Name == "Rondar")
         {
             if (collision.gameObject.GetComponent<JabaliController>().siendoCazado)
             {

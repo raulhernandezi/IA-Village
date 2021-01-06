@@ -2604,6 +2604,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CasaAgricultorInicial
       objectReference: {fileID: 0}
+    - target: {fileID: 6279099512116343729, guid: 3d47fdf85f60df144ad280cf0854cbb1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d47fdf85f60df144ad280cf0854cbb1, type: 3}
 --- !u!1 &768784430
@@ -2772,6 +2777,7 @@ MonoBehaviour:
   - {x: -250, y: 0, z: 0}
   - {x: 0, y: 0, z: 250}
   - {x: 0, y: 0, z: -250}
+  contadorOficios: 00000000000000000000000000000000
 --- !u!4 &834243927
 Transform:
   m_ObjectHideFlags: 0

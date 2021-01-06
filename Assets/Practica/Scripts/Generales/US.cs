@@ -120,8 +120,8 @@ public class US : MonoBehaviour
     {
 
         tienehambre = new LeafVariable(() => hay_hambre, 1, 0);
-        haycomida = new LeafVariable(() => gms.hay_comida, 1, 0);
-        hayleche = new LeafVariable(() => gms.hay_leche, 1, 0);
+        //haycomida = new LeafVariable(() => gms.hay_comida, 1, 0);
+        //hayleche = new LeafVariable(() => gms.hay_leche, 1, 0);
         tienesed = new LeafVariable(() => hay_sed, 1, 0);
         trabajar = new LeafVariable(() => seTrabaja, 0.65f, 0.65f);
 
@@ -276,7 +276,7 @@ public class US : MonoBehaviour
                 BuscarCampoAction();
             }
             US_US.Update();
-            trabajarfsm_SubFSM.Update();
+            //trabajarfsm_SubFSM.Update();
         }
     }
 

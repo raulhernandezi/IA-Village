@@ -424,7 +424,10 @@ MonoBehaviour:
   flecha: {fileID: 9009604944657811384, guid: 96b7f06d370987f4c910981c52539e1b, type: 3}
   barraProgreso: {fileID: 3372430385660172737}
   spawnFlecha: {fileID: 3372430386027387068}
-  meshCarne: {fileID: 4300002, guid: 6b9b92cb10312db46a06be32e7ecc4fd, type: 3}
+  meshCarne: {fileID: -7387706064836869012, guid: 89400fda9482bf44cace0b8ea9a9d945,
+    type: 3}
+  materialCarne: {fileID: 2100000, guid: 06b603d2b699fcf4b91349bb7ef77cb3, type: 2}
+  carne: {fileID: -927199367670048503, guid: 89400fda9482bf44cace0b8ea9a9d945, type: 3}
   presa: {fileID: 0}
   hogar: {fileID: 0}
   gameManager: {fileID: 0}

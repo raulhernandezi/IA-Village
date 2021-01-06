@@ -12,8 +12,8 @@ public class GameManagerScript : MonoBehaviour
     public int comida;
     public int madera;
     public int pasto;
-    public float hay_leche;
-    public float hay_comida;
+    public bool hay_leche;
+    public bool hay_comida;
 
     [SerializeField] private TextMeshProUGUI txt_Comida;
     [SerializeField] private TextMeshProUGUI txt_Leche;
@@ -29,6 +29,8 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] public Transform[] ZonasSpawnArboles;
     [SerializeField] public Vector3[] ZonasSpawnJabalis;
 
+    public int[] contadorOficios = new int[4]; //0 Agricultor, 1 Cazador, 2 Leñador, 3 Granjero
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +38,8 @@ public class GameManagerScript : MonoBehaviour
         comida = 5;
         madera = 5;
         pasto = 5;
-        hay_leche = 0;
-        hay_comida = 0;
+        hay_leche = false;
+        hay_comida = false;
         txt_Comida.text = "Comida: " + comida;
         txt_Leche.text = "Leche: " + leche;
         txt_Madera.text = "Madera: " + madera;
@@ -47,6 +49,12 @@ public class GameManagerScript : MonoBehaviour
             SpawnearArbol();
             SpawnearJabali();
         }
+        for(int i = 0; i < contadorOficios.Length; i++)
+        {
+            contadorOficios[i] = 1;
+        }
+        StartCoroutine(JabaliGeneratorAuto());
+        //StartCoroutine(ArbolGeneratorAuto());
     }
 
     // Update is called once per frame
@@ -54,19 +62,19 @@ public class GameManagerScript : MonoBehaviour
     {
         if(leche > 0)
         {
-            hay_leche = 1f;
+            hay_leche = true;
         }
         else
         {
-            hay_leche = 0f;
+            hay_leche = false;
         }
 
         if(comida > 0)
         {
-            hay_comida = 1f;
+            hay_comida = true;
         }
         else{
-            hay_comida = 0f;
+            hay_comida = false;
         }
 
         txt_Comida.text = "Comida: " + comida;
@@ -113,5 +121,19 @@ public class GameManagerScript : MonoBehaviour
         //Debug.Log("Spawneo en el sector " + zonaRandom + " cuyo centro es " + zona.position.x + "," + zona.position.z);
         Vector3 spawnPos = new Vector3(posX, 1, posZ);
         Instantiate(jabaliPrefab, spawnPos, Quaternion.identity);
+    }
+
+    public IEnumerator JabaliGeneratorAuto()
+    {
+        yield return new WaitForSeconds(40f);
+        SpawnearJabali();
+        StartCoroutine(JabaliGeneratorAuto());
+    }
+
+    public IEnumerator ArbolGeneratorAuto()
+    {
+        yield return new WaitForSeconds(10f);
+        SpawnearArbol();
+        StartCoroutine(ArbolGeneratorAuto());
     }
 }

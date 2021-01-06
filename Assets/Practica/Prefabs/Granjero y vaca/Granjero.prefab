@@ -106,8 +106,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 12
+  m_Acceleration: 60
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -132,6 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corralSuyo: {fileID: 0}
   navMesh: {fileID: 3033067924983869742}
+  gameManager: {fileID: 0}
+  pastoRecogido: 0
   vacaLista: 0
 --- !u!54 &5534522236133810866
 Rigidbody:

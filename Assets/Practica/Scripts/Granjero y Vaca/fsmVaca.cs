@@ -116,8 +116,13 @@ public class fsmVaca : MonoBehaviour {
         fsmVaca_FSM.Update();
     }
 
+    protected void LateUpdate()
+    {
+        transform.localEulerAngles = new Vector3(-90, transform.localEulerAngles.y, 0);
+    }
+
     // Create your desired actions
-    
+
     private void EsperandoAction()
     {
         puedeSerOrdeñada = false;

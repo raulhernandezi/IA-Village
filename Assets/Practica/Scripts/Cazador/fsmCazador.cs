@@ -29,6 +29,8 @@ public class fsmCazador : MonoBehaviour {
     [SerializeField] private GameObject barraProgreso;
     [SerializeField] private GameObject spawnFlecha;
     [SerializeField] private Mesh meshCarne;
+    [SerializeField] private Material materialCarne;
+    [SerializeField] private GameObject carne;
     [HideInInspector] public GameObject presa;
 
     public CasaController hogar;
@@ -199,7 +201,8 @@ public class fsmCazador : MonoBehaviour {
     {
         yield return new WaitForSeconds(2f);
 
-        //presa.gameObject.GetComponent<MeshFilter>().mesh = meshCarne;
+        presa.gameObject.GetComponent<MeshFilter>().mesh = meshCarne;
+        presa.gameObject.GetComponent<MeshRenderer>().material = materialCarne;
         AnimalMuerto();
     }
 }
