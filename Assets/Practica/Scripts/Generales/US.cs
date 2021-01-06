@@ -74,8 +74,8 @@ public class US : MonoBehaviour
         hay_hambre = 0;
         hay_sed = 0;
         seTrabaja = 0.65f;
-
-
+        comiendo = false;
+        bebiendo = false;
 
         gms = FindObjectOfType<GameManagerScript>();
 
@@ -167,7 +167,7 @@ public class US : MonoBehaviour
         // ACTIONS
         comer = US_US.CreateUtilityAction("comer", comerAction, fusionComer);
         beber = US_US.CreateUtilityAction("beber", beberAction, fusionBeber);
-        trabajarfsm = US_US.CreateSubBehaviour("trabajar_fsm", fusionTrabajar, trabajarfsm_SubFSM);
+        trabajarfsm = US_US.CreateSubBehaviour("trabajar_fsm", trabajar, trabajarfsm_SubFSM);
 
 
         // ExitPerceptions
@@ -200,8 +200,9 @@ public class US : MonoBehaviour
                 hay_sed = 0f;
             }
 
-            Debug.Log("Comiendo" + comiendo);
-            Debug.Log("Bebiendo" + bebiendo);
+            //Debug.Log("Comiendo" + comiendo);
+            //Debug.Log("Bebiendo" + bebiendo);
+
             if (comiendo && (int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z)
             {
                 barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
@@ -277,7 +278,6 @@ public class US : MonoBehaviour
             US_US.Update();
             trabajarfsm_SubFSM.Update();
         }
-
     }
 
     // Create your desired actions
@@ -285,13 +285,13 @@ public class US : MonoBehaviour
     private void comerAction()
     {
         comiendo = true;
-        nmesh.destination = restaurante.transform.position;
+        nmesh.destination = restaurante.position;
     }
 
     private void beberAction()
     {
         bebiendo = true;
-        nmesh.destination = restaurante.transform.position;
+        nmesh.destination = restaurante.position;
     }
 
     private void BuscarCampoAction()

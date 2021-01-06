@@ -18,10 +18,7 @@ public class fsmConstructor : MonoBehaviour {
     //Place your variables here
 
     [SerializeField] public NavMeshAgent navMesh;
-    [SerializeField] public GameObject corralPrefab;
-    [SerializeField] public GameObject casaLeñadorPrefab;
-    [SerializeField] public GameObject casaCazadorPrefab;
-    [SerializeField] public GameObject casaAgricultorPrefab;
+    [SerializeField] public GameObject[] prefabsCasas;
     public CimientosControler cimientosController;
     public CasaController hogar;
 
@@ -40,7 +37,7 @@ public class fsmConstructor : MonoBehaviour {
     private void Start()
     {
         fsmConstructor_FSM = new StateMachineEngine(false);
-
+        gameManager = FindObjectOfType<GameManagerScript>();
         madera = 0;
         cimientosController = FindObjectOfType<CimientosControler>();
 
@@ -117,9 +114,10 @@ public class fsmConstructor : MonoBehaviour {
     {
         yield return new WaitForSeconds(5);
         //Aqui deberia o bien decidir de que oficio hay menos y en ese caso construir esa casa concreta
-        madera = 0;
+        int random = Random.Range(0, 3);
         Debug.Log("Casa construida");
-        Instantiate(corralPrefab, lugarDondeConstruir.position, lugarDondeConstruir.rotation);
+        Instantiate(prefabsCasas[random], lugarDondeConstruir.position, lugarDondeConstruir.rotation);
+        gameManager.madera -= 20;
         fsmConstructor_FSM.Fire("ConstruccionFinalizada");
     }
     
