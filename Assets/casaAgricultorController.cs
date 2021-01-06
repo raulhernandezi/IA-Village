@@ -11,7 +11,7 @@ public class casaAgricultorController : MonoBehaviour
     void Start()
     {
         GameObject agricultor = Instantiate(prefab, spawnAgricultor.transform.position, Quaternion.identity);
-        agricultor.GetComponent<US>().casa = this.gameObject;
+        agricultor.GetComponent<fsmAgricultor>().casa = this.gameObject;
     }
 
     // Update is called once per frame
