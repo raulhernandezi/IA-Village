@@ -29,7 +29,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] public Transform[] ZonasSpawnArboles;
     [SerializeField] public Vector3[] ZonasSpawnJabalis;
 
-    public int[] contadorOficios = new int[4]; //0 Agricultor, 1 Cazador, 2 Leñador, 3 Granjero
+    public int[] contadorOficios = new int[4]; //3 Agricultor, 1 Cazador, 2 Leñador, 0 Granjero
 
     // Start is called before the first frame update
     void Start()

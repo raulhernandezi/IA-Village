@@ -153,7 +153,7 @@ public class fsmLeñador : MonoBehaviour {
                 if (estadoHacha >= 6)
                 {
                     Debug.Log("a reparar");
-                    gameManager.madera++;
+                    gameManager.madera += 3;
                     fsmLeñador_FSM.Fire("HachaRota");
                 }
                 else
@@ -256,7 +256,7 @@ public class fsmLeñador : MonoBehaviour {
     IEnumerator timerTalado()
     {
         yield return new WaitForSeconds(0.1f);
-        gameManager.madera++;
+        gameManager.madera += 3;
         fsmLeñador_FSM.Fire("Talado");
         
     }

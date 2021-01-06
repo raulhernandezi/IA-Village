@@ -16,15 +16,18 @@ public class CorralController : MonoBehaviour
     [SerializeField] public GameObject comederoGO;
     public GameObject propietario;
     public int pasto;
+    private GameManagerScript gameManager;
     
     void Start()
     {
+        gameManager = FindObjectOfType<GameManagerScript>();
         GameObject vacaPrimera = Instantiate(vacaPrefab, transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
         vacaPrimera.GetComponent<fsmVaca>().corral = this;
         AñadirVaca(vacaPrimera);
         propietario = Instantiate(granjeroPrefab, transform.position + new Vector3(5, 0.5f, 0), Quaternion.identity);
         propietario.GetComponent<fsmGranjero>().corralSuyo = this;
         pasto = 4;
+        gameManager.contadorOficios[0]++;
     }
     
 

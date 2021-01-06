@@ -1816,6 +1816,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Herreria
       objectReference: {fileID: 0}
+    - target: {fileID: 8582955409147744495, guid: 191171264a598374aad500d1e0322db0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191171264a598374aad500d1e0322db0, type: 3}
 --- !u!4 &567524929 stripped
@@ -2089,7 +2094,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615252634}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!1001 &616369102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2607,7 +2612,7 @@ PrefabInstance:
     - target: {fileID: 6279099512116343729, guid: 3d47fdf85f60df144ad280cf0854cbb1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d47fdf85f60df144ad280cf0854cbb1, type: 3}
@@ -3548,7 +3553,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386751354}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1567105896
 GameObject:
   m_ObjectHideFlags: 0
@@ -4092,7 +4097,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806712786}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!114 &1821356814 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 104453422935039895, guid: 3fbb3b66ac820c74fb37501c1402b32c,
@@ -4122,6 +4127,7 @@ GameObject:
   - component: {fileID: 1852765289}
   - component: {fileID: 1852765288}
   - component: {fileID: 1852765287}
+  - component: {fileID: 1852765290}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4188,12 +4194,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852765286}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 62.6, y: 22.02, z: -29.1}
+  m_LocalPosition: {x: 2.3, y: 93.36, z: -124.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1852765290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852765286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436275a13d4459746955fc6db5953473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _active: 1
+  _enableRotation: 1
+  _mouseSense: 1.8
+  _enableTranslation: 1
+  _translationSpeed: 30
+  _enableMovement: 1
+  _movementSpeed: 10
+  _boostedSpeed: 40
+  _boostSpeed: 304
+  _moveUp: 101
+  _moveDown: 113
+  _enableSpeedAcceleration: 0
+  _speedAccelerationFactor: 1.5
+  _initPositonButton: 114
 --- !u!1001 &1881297475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4528,7 +4560,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101509702}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!114 &2133973018 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 104453422935039895, guid: 3fbb3b66ac820c74fb37501c1402b32c,

@@ -109,10 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMesh: {fileID: 2356671893836987855}
   prefabsCasas:
-  - {fileID: 6279099512116343729, guid: 3d47fdf85f60df144ad280cf0854cbb1, type: 3}
+  - {fileID: 4173440470276277885, guid: cabe35c589b70e04da5f346036b4ec89, type: 3}
   - {fileID: 4587771556789993487, guid: 947128d9e7f457e47879c8ab2a7f3eba, type: 3}
   - {fileID: 4998140745081993321, guid: 6a7a242bdde50d14cb5d2a1c7edc0fee, type: 3}
-  - {fileID: 4173440470276277885, guid: cabe35c589b70e04da5f346036b4ec89, type: 3}
+  - {fileID: 6279099512116343729, guid: 3d47fdf85f60df144ad280cf0854cbb1, type: 3}
   cimientosController: {fileID: 0}
   hogar: {fileID: 0}
   gameManager: {fileID: 0}

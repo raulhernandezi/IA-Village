@@ -33,7 +33,7 @@ public class fsmVaca : MonoBehaviour {
     public float hambre;
     public int bienAlimentada;
     public int ordeñable;
-    private float ratioPerdidaHambrePorSegundo = 0.5f;
+    private float ratioPerdidaHambrePorSegundo = 2f;
 
     public bool puedeSerOrdeñada;
 
@@ -126,7 +126,7 @@ public class fsmVaca : MonoBehaviour {
     private void EsperandoAction()
     {
         puedeSerOrdeñada = false;
-        posicionRandom = corral.getRandomPointInside() * 10;
+        posicionRandom = corral.getRandomPointInside() * 8;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
         StartCoroutine(MovimientoRandom());
     }
@@ -147,7 +147,7 @@ public class fsmVaca : MonoBehaviour {
     {
         //Debug.Log("Espero a ser ordeñada");
         puedeSerOrdeñada = true;
-        posicionRandom = corral.getRandomPointInside() * 10;
+        posicionRandom = corral.getRandomPointInside() * 8;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
     }
     
@@ -162,7 +162,7 @@ public class fsmVaca : MonoBehaviour {
         yield return new WaitForSeconds(7);
         if (fsmVaca_FSM.actualState == Esperando)
         {
-            posicionRandom = corral.getRandomPointInside() * 10;
+            posicionRandom = corral.getRandomPointInside() * 8;
             navMesh.destination = new Vector3(transform.position.x + posicionRandom.x, transform.position.y, transform.position.z + posicionRandom.z);
             StartCoroutine(MovimientoRandom());
         }
@@ -172,7 +172,7 @@ public class fsmVaca : MonoBehaviour {
     {
         yield return new WaitForSeconds(3);
         hambre = 100;
-        ordeñable += Random.Range(10, 30);
+        ordeñable += Random.Range(35, 50);
         bienAlimentada += 1; //Deberia ser 1
         corral.ComerPasto();
         if(ordeñable >= 100)
