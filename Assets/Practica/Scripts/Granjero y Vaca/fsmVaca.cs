@@ -118,7 +118,7 @@ public class fsmVaca : MonoBehaviour {
 
     protected void LateUpdate()
     {
-        transform.localEulerAngles = new Vector3(-90, transform.localEulerAngles.y, 0);
+        transform.localEulerAngles = new Vector3(-90, transform.localEulerAngles.y, transform.localEulerAngles.z);
     }
 
     // Create your desired actions
@@ -126,7 +126,7 @@ public class fsmVaca : MonoBehaviour {
     private void EsperandoAction()
     {
         puedeSerOrdeñada = false;
-        posicionRandom = Random.insideUnitSphere * 12;
+        posicionRandom = corral.getRandomPointInside() * 10;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
         StartCoroutine(MovimientoRandom());
     }
@@ -147,7 +147,7 @@ public class fsmVaca : MonoBehaviour {
     {
         //Debug.Log("Espero a ser ordeñada");
         puedeSerOrdeñada = true;
-        posicionRandom = Random.insideUnitSphere * 12;
+        posicionRandom = corral.getRandomPointInside() * 10;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
     }
     
@@ -162,7 +162,7 @@ public class fsmVaca : MonoBehaviour {
         yield return new WaitForSeconds(7);
         if (fsmVaca_FSM.actualState == Esperando)
         {
-            posicionRandom = Random.insideUnitSphere * 3;
+            posicionRandom = corral.getRandomPointInside() * 10;
             navMesh.destination = new Vector3(transform.position.x + posicionRandom.x, transform.position.y, transform.position.z + posicionRandom.z);
             StartCoroutine(MovimientoRandom());
         }

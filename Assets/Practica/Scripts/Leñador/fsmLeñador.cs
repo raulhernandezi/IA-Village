@@ -28,7 +28,7 @@ public class fsmLeñador : MonoBehaviour {
     [SerializeField] private GameObject barraProgreso;
     private NavMeshAgent navMesh;
     private GameObject arbolPadre;
-    public int arbolDestino;
+    public GameObject arbolDestino;
     private bool arbolEncontrado;
     private GameObject[] arboles;
 
@@ -61,7 +61,7 @@ public class fsmLeñador : MonoBehaviour {
         sed = 0;
         ratioGananciaHambre = Random.Range(0.1f, 0.3f);
         ratioGananciaSed = Random.Range(0.3f, 0.6f);
-        //ratioGananciaSed = 5f;
+
         navMesh = GetComponent<NavMeshAgent>();
         arbolPadre = GameObject.FindGameObjectWithTag("ArbolPadre");
         arboles = new GameObject[arbolPadre.transform.childCount];
@@ -70,7 +70,7 @@ public class fsmLeñador : MonoBehaviour {
         {
             arboles[i] = arbolPadre.transform.GetChild(i).gameObject;
         }
-        arbolDestino = 0;
+        arbolDestino = arboles[0];
 
         CreateStateMachine();
     }
@@ -79,7 +79,6 @@ public class fsmLeñador : MonoBehaviour {
     private void CreateStateMachine()
     {
         // Perceptions
-        // Modify or add new Perceptions, see the guide for more
         HachaRotaPerception = fsmLeñador_FSM.CreatePerception<PushPerception>();
         TaladoPerception = fsmLeñador_FSM.CreatePerception<PushPerception>();
         HachaReparadaPerception = fsmLeñador_FSM.CreatePerception<PushPerception>();
@@ -97,6 +96,7 @@ public class fsmLeñador : MonoBehaviour {
 
         // Transitions
         fsmLeñador_FSM.CreateTransition("HachaRota", Talar, HachaRotaPerception, RepararHacha);
+        fsmLeñador_FSM.CreateTransition("HachaParaReparar", BuscarArbol, HachaRotaPerception, RepararHacha);
         fsmLeñador_FSM.CreateTransition("Talado", Talar, TaladoPerception, BuscarArbol);
         fsmLeñador_FSM.CreateTransition("HachaReparada", RepararHacha, HachaReparadaPerception, BuscarArbol);
         fsmLeñador_FSM.CreateTransition("ArbolEncontrado", BuscarArbol, ArbolEncontradoPerception, Talar);
@@ -104,9 +104,6 @@ public class fsmLeñador : MonoBehaviour {
         fsmLeñador_FSM.CreateTransition("HaySedYLeche", BuscarArbol, HaySedYLechePerception, Bebiendo);
         fsmLeñador_FSM.CreateTransition("HambreSaciada", Comiendo, NecesidadSaciadaPerception, BuscarArbol);
         fsmLeñador_FSM.CreateTransition("SedSaciada", Bebiendo, NecesidadSaciadaPerception, BuscarArbol);
-        // ExitPerceptions
-
-        // ExitTransitions
 
     }
 
@@ -133,10 +130,11 @@ public class fsmLeñador : MonoBehaviour {
             StartCoroutine(BeberTimer());
         }
 
-        if (fsmLeñador_FSM.actualState == BuscarArbol && (int)arboles[arbolDestino].transform.GetChild(0).position.x == (int)transform.position.x && (int)arboles[arbolDestino].transform.GetChild(0).position.z == (int)transform.position.z)
+        if (fsmLeñador_FSM.actualState == BuscarArbol && arbolDestino != null &&
+            (int)arbolDestino.GetComponent<ArbolController>().zonaDeTalado.position.x == (int)transform.position.x && 
+            (int)arbolDestino.GetComponent<ArbolController>().zonaDeTalado.position.z == (int)transform.position.z)
         {
             Debug.Log("He llegado al arbol para talar");
-            yendoTalar = false;
             fsmLeñador_FSM.Fire("ArbolEncontrado");
             
         }
@@ -147,14 +145,12 @@ public class fsmLeñador : MonoBehaviour {
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
             {
                 talando = false;
-                //Debug.Log(owner.GetComponent<fsmLeñador>().fsmLeñador_FSM.actualState.Name);
-                Destroy(arboles[arbolDestino].gameObject);
+                Destroy(arbolDestino.gameObject);
                 barraProgreso.GetComponent<Slider>().value = 0;
                 barraProgreso.SetActive(false);
                 
-                Debug.Log(fsmLeñador_FSM.actualState.Name);
                 estadoHacha++;
-                if (estadoHacha == 3)
+                if (estadoHacha >= 6)
                 {
                     Debug.Log("a reparar");
                     gameManager.madera++;
@@ -175,25 +171,17 @@ public class fsmLeñador : MonoBehaviour {
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
             {
+                estadoHacha = 0;
                 fsmLeñador_FSM.Fire("HachaReparada");
-                //Debug.Log(owner.GetComponent<fsmLeñador>().fsmLeñador_FSM.actualState.Name);
                 barraProgreso.GetComponent<Slider>().value = 0;
                 barraProgreso.SetActive(false);
                 
                 Debug.Log(fsmLeñador_FSM.actualState.Name);
                 reparando = false;
-                
-                
-                estadoHacha = 0;
-                
+
             }
         }
-
         
-        /*if(fsmLeñador_FSM.actualState.Name == "BuscarArbol")
-        {
-            BuscarArbolAction();
-        }*/
         fsmLeñador_FSM.Update();
     }
 
@@ -214,48 +202,41 @@ public class fsmLeñador : MonoBehaviour {
         {
             fsmLeñador_FSM.Fire("HaySedYLeche");
         }
-        else if(estadoHacha >= 3)
+        else if(estadoHacha >= 6)
         {
-            fsmLeñador_FSM.Fire("HachaRota");
+            fsmLeñador_FSM.Fire("HachaParaReparar");
         }
         else
         {
-            Debug.Log("Buscando arbol");
-            arbolDestino = 0;
+            arboles = new GameObject[arbolPadre.transform.childCount];
             for (int i = 0; i < arbolPadre.transform.childCount; i++)
             {
                 arboles[i] = arbolPadre.transform.GetChild(i).gameObject;
             }
-
+            arbolDestino = arboles[0];
             for (int i = 0; i < arbolPadre.transform.childCount; i++)
             {
-                if (Vector3.Distance(transform.position, arboles[i].transform.position) < Vector3.Distance(transform.position, arboles[arbolDestino].transform.position))
+                if (Vector3.Distance(transform.position, arboles[i].transform.position) < Vector3.Distance(transform.position, arbolDestino.transform.position) &&
+                    !arboles[i].GetComponent<ArbolController>().siendoTalado)
                 {
-                    arbolDestino = i;
+                    arbolDestino = arboles[i];
                 }
             }
-            arbolEncontrado = true;
-            Debug.Log("arbol: " + arbolDestino);
-
-            //if (!reparando)
-            //{
-                navMesh.destination = arboles[arbolDestino].transform.GetChild(0).position;
-                yendoTalar = true;
-            //}
+            
+            arbolDestino.GetComponent<ArbolController>().siendoTalado = true;
+            navMesh.destination = arbolDestino.GetComponent<ArbolController>().zonaDeTalado.position;
+            yendoTalar = true;
+            
         }
     }
     
     private void TalarAction()
     {
-        Debug.Log("Talando");
-        
         talando = true;
-        
     }
     
     private void RepararHachaAction()
     {
-        Debug.Log("Reparando hacha");
         navMesh.destination = herreria.position;
         reparando = true;
     }
@@ -271,24 +252,11 @@ public class fsmLeñador : MonoBehaviour {
         navMesh.destination = gameManager.restaurantePlace.position;
         estaComiendo = false;
     }
-    /* private GameObject[] obtenerArboles()
-     {
-         GameObject[] arrayArb = new GameObject[arbolPadre.transform.childCount];
-         for (int i = 0; i < arbolPadre.transform.childCount; i++)
-         {
-             arrayArb[i] = arbolPadre.transform.GetChild(i).gameObject;
-         }
-         arbolDestino = arboles[0];
-         return arrayArb;
-
-
-     }*/
 
     IEnumerator timerTalado()
     {
         yield return new WaitForSeconds(0.1f);
         gameManager.madera++;
-        arbolEncontrado = false;
         fsmLeñador_FSM.Fire("Talado");
         
     }

@@ -15,6 +15,11 @@ public class fsmCazador : MonoBehaviour {
     private PushPerception IrAPorComidaPerception;
     private PushPerception IrADejarComidaPerception;
     private PushPerception RondarDeNuevoPerception;
+    private PushPerception HayHambreYComidaPerception;
+    private PushPerception HaySedYLechePerception;
+    private PushPerception NecesidadSaciadaPerception;
+    private State Comiendo;
+    private State Bebiendo;
     private State Rondar;
     private State Disparar;
     private State CogerComida;
@@ -42,6 +47,13 @@ public class fsmCazador : MonoBehaviour {
 
     //Place your variables here
 
+    public float hambre;
+    public float sed;
+    private float ratioGananciaHambre;
+    private float ratioGananciaSed;
+    private bool estaComiendo;
+    private bool estaBebiendo;
+
     public GameManagerScript gameManager;
 
     #endregion variables
@@ -56,6 +68,11 @@ public class fsmCazador : MonoBehaviour {
         recogiendo = false;
         entregando = false;
         gameManager = FindObjectOfType<GameManagerScript>();
+
+        hambre = 0;
+        sed = 0;
+        ratioGananciaHambre = Random.Range(0.1f, 0.3f);
+        ratioGananciaSed = Random.Range(0.3f, 0.6f);
 
         caminoCazador = GameObject.FindGameObjectWithTag("CaminoCazador");
         puntos = new GameObject[caminoCazador.transform.childCount];
@@ -76,63 +93,81 @@ public class fsmCazador : MonoBehaviour {
         IrAPorComidaPerception = fsmCazador_FSM.CreatePerception<PushPerception>();
         IrADejarComidaPerception = fsmCazador_FSM.CreatePerception<PushPerception>();
         RondarDeNuevoPerception = fsmCazador_FSM.CreatePerception<PushPerception>();
-        
+        HayHambreYComidaPerception = fsmCazador_FSM.CreatePerception<PushPerception>();
+        HaySedYLechePerception = fsmCazador_FSM.CreatePerception<PushPerception>();
+        NecesidadSaciadaPerception = fsmCazador_FSM.CreatePerception<PushPerception>();
+
         // States
         Rondar = fsmCazador_FSM.CreateEntryState("Rondar", RondarAction);
         Disparar = fsmCazador_FSM.CreateState("Disparar", DispararAction);
         CogerComida = fsmCazador_FSM.CreateState("CogerComida", CogerComidaAction);
         DejarComida = fsmCazador_FSM.CreateState("DejarComida", DejarComidaAction);
-        
+        Bebiendo = fsmCazador_FSM.CreateState("Bebiendo", BebiendoAction);
+        Comiendo = fsmCazador_FSM.CreateState("Comiendo", ComiendoAction);
+
         // Transitions
         fsmCazador_FSM.CreateTransition("AnimalEnRango", Rondar, AnimalEnRangoPerception, Disparar);
         fsmCazador_FSM.CreateTransition("IrAPorComida", Disparar, IrAPorComidaPerception, CogerComida);
         fsmCazador_FSM.CreateTransition("IrADejarComida", CogerComida, IrADejarComidaPerception, DejarComida);
         fsmCazador_FSM.CreateTransition("RondarDeNuevo", DejarComida, RondarDeNuevoPerception, Rondar);
-        
+        fsmCazador_FSM.CreateTransition("HayHambreYComida", Rondar, HayHambreYComidaPerception, Comiendo);
+        fsmCazador_FSM.CreateTransition("HaySedYLeche", Rondar, HaySedYLechePerception, Bebiendo);
+        fsmCazador_FSM.CreateTransition("HambreSaciada", Comiendo, NecesidadSaciadaPerception, Rondar);
+        fsmCazador_FSM.CreateTransition("SedSaciada", Bebiendo, NecesidadSaciadaPerception, Rondar);
+
         // ExitPerceptions
-        
+
         // ExitTransitions
-        
+
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (fsmCazador_FSM.actualState != Comiendo && fsmCazador_FSM.actualState != Bebiendo)
+        {
+            sed += Time.deltaTime * ratioGananciaSed;
+            hambre += Time.deltaTime * ratioGananciaHambre;
+        }
+        if (fsmCazador_FSM.actualState == Comiendo &&
+            (int)transform.position.x == (int)gameManager.restaurantePlace.position.x &&
+            (int)transform.position.z == (int)gameManager.restaurantePlace.position.z && !estaComiendo && gameManager.hay_comida)
+        {
+            estaComiendo = true;
+            StartCoroutine(ComerTimer());
+        }
+        if (fsmCazador_FSM.actualState == Bebiendo &&
+            (int)transform.position.x == (int)gameManager.restaurantePlace.position.x &&
+            (int)transform.position.z == (int)gameManager.restaurantePlace.position.z && !estaBebiendo && gameManager.hay_leche)
+        {
+            estaBebiendo = true;
+            StartCoroutine(BeberTimer());
+        }
         if (rondar)
         {
-            nmesh.destination = puntos[puntoActual].transform.position;
-            if ((int)transform.position.x == (int)puntos[puntoActual].transform.position.x && (int)transform.position.z == (int)puntos[puntoActual].transform.position.z)
+            if (gameManager.hay_comida && hambre > 70)
             {
-                //Debug.Log("Llegue");
+                fsmCazador_FSM.Fire("HayHambreYComida");
+            }
+            else if (gameManager.hay_leche && sed > 70)
+            {
+                fsmCazador_FSM.Fire("HaySedYLeche");
+            }
+            else if ((int)transform.position.x == (int)puntos[puntoActual].transform.position.x && (int)transform.position.z == (int)puntos[puntoActual].transform.position.z)
+            {
                 if (puntoActual == caminoCazador.transform.childCount - 1)
                 {
-                    //Debug.Log("LLegue al ultimo punto, me vuelvo");
                     puntoActual = 0;
                 }
                 else
                 {
-                    //Debug.Log("Paso al siguiente punto");
                     puntoActual++;
                 }
             }
         }
-        /*
-        if (recogiendo)
-        {
-            barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
-            if(barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
-            {
-                Destroy(presa.gameObject);
-                barraProgreso.GetComponent<Slider>().value = 0;
-                barraProgreso.SetActive(false);
-                fsmCazador_FSM.Fire("IrADejarComida");
-                recogiendo = false;
-            }
-        }*/
 
         if ((int)nmesh.destination.x == (int)transform.position.x && (int)nmesh.destination.z == (int)transform.position.z  && entregando)
         {
-            //Debug.Log("He llegado a dejar la comida");
             entregando = false;
             gameManager.comida += 2;
             fsmCazador_FSM.Fire("RondarDeNuevo");
@@ -150,8 +185,8 @@ public class fsmCazador : MonoBehaviour {
     
     private void RondarAction()
     {
-        //Debug.Log("ESTADO RONDAR");
         rondar = true;
+        nmesh.destination = puntos[puntoActual].transform.position;
     }
     
     private void DispararAction()
@@ -164,15 +199,25 @@ public class fsmCazador : MonoBehaviour {
     
     private void CogerComidaAction()
     {
-        //Debug.Log("Yendo a por la comida");
         nmesh.destination = presa.transform.position;
     }
     
     private void DejarComidaAction()
     {
-        //Debug.Log("Voy a dejar la comida");
         nmesh.destination = gameManager.almacenDropPlace.position;
         entregando = true;
+    }
+
+    private void BebiendoAction()
+    {
+        nmesh.destination = gameManager.restaurantePlace.position;
+        estaBebiendo = false;
+    }
+
+    private void ComiendoAction()
+    {
+        nmesh.destination = gameManager.restaurantePlace.position;
+        estaComiendo = false;
     }
 
     public void AnimalEnRango(GameObject animal)
@@ -185,17 +230,6 @@ public class fsmCazador : MonoBehaviour {
     {
         fsmCazador_FSM.Fire("IrAPorComida");
     }
-    /*
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log("He tocado algo");
-        if (collision.gameObject.tag == "Jabali")
-        {
-            Debug.Log("He recogido el jabali");
-            barraProgreso.SetActive(true);
-            recogiendo = true;
-        }
-    }*/
 
     public IEnumerator flechaTimer()
     {
@@ -204,5 +238,21 @@ public class fsmCazador : MonoBehaviour {
         presa.gameObject.GetComponent<MeshFilter>().mesh = meshCarne;
         presa.gameObject.GetComponent<MeshRenderer>().material = materialCarne;
         AnimalMuerto();
+    }
+
+    public IEnumerator ComerTimer()
+    {
+        yield return new WaitForSeconds(2);
+        hambre = 0;
+        gameManager.comida--;
+        fsmCazador_FSM.Fire("HambreSaciada");
+    }
+
+    public IEnumerator BeberTimer()
+    {
+        yield return new WaitForSeconds(2);
+        sed = 0;
+        gameManager.leche--;
+        fsmCazador_FSM.Fire("SedSaciada");
     }
 }

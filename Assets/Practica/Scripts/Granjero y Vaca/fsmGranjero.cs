@@ -14,6 +14,11 @@ public class fsmGranjero : MonoBehaviour {
     private PushPerception ComederoHaSidoLlenadoPerception;
     private PushPerception VacaHaSidoOrdeñadaPerception;
     private PushPerception VacaOrdeñablePerception;
+    private PushPerception HayHambreYComidaPerception;
+    private PushPerception HaySedYLechePerception;
+    private PushPerception NecesidadSaciadaPerception;
+    private State Comiendo;
+    private State Bebiendo;
     private State Esperando;
     private State RellenarComedero;
     private State OrdeñarVaca;
@@ -27,12 +32,25 @@ public class fsmGranjero : MonoBehaviour {
     public int pastoRecogido;
     public bool vacaLista;
 
+    public float hambre;
+    public float sed;
+    private float ratioGananciaHambre;
+    private float ratioGananciaSed;
+    private bool estaComiendo;
+    private bool estaBebiendo;
+
     #endregion variables
 
     // Start is called before the first frame update
     private void Start()
     {
         fsmGranjero_FSM = new StateMachineEngine(false);
+        gameManager = FindObjectOfType<GameManagerScript>();
+
+        hambre = 0;
+        sed = 0;
+        ratioGananciaHambre = Random.Range(0.1f, 0.3f);
+        ratioGananciaSed = Random.Range(0.3f, 0.6f);
 
         CreateStateMachine();
     }
@@ -46,25 +64,60 @@ public class fsmGranjero : MonoBehaviour {
         ComederoHaSidoLlenadoPerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
         VacaHaSidoOrdeñadaPerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
         VacaOrdeñablePerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
-        
+        HayHambreYComidaPerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
+        HaySedYLechePerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
+        NecesidadSaciadaPerception = fsmGranjero_FSM.CreatePerception<PushPerception>();
+
         // States
         Esperando = fsmGranjero_FSM.CreateEntryState("Esperando", EsperandoAction);
         RellenarComedero = fsmGranjero_FSM.CreateState("Rellenar Comedero", RellenarComederoAction);
         OrdeñarVaca = fsmGranjero_FSM.CreateState("Ordeñar Vaca", OrdeñarVacaAction);
-        
+        Bebiendo = fsmGranjero_FSM.CreateState("Bebiendo", BebiendoAction);
+        Comiendo = fsmGranjero_FSM.CreateState("Comiendo", ComiendoAction);
+
         // Transitions
         fsmGranjero_FSM.CreateTransition("ComederoVacio", Esperando, ComederoVacioPerception, RellenarComedero);
         fsmGranjero_FSM.CreateTransition("ComederoHaSidoLlenado", RellenarComedero, ComederoHaSidoLlenadoPerception, Esperando);
         fsmGranjero_FSM.CreateTransition("VacaHaSidoOrdeñada", OrdeñarVaca, VacaHaSidoOrdeñadaPerception, Esperando);
         fsmGranjero_FSM.CreateTransition("VacaOrdeñable", Esperando, VacaOrdeñablePerception, OrdeñarVaca);
+        fsmGranjero_FSM.CreateTransition("HayHambreYComida", Esperando, HayHambreYComidaPerception, Comiendo);
+        fsmGranjero_FSM.CreateTransition("HaySedYLeche", Esperando, HaySedYLechePerception, Bebiendo);
+        fsmGranjero_FSM.CreateTransition("HambreSaciada", Comiendo, NecesidadSaciadaPerception, Esperando);
+        fsmGranjero_FSM.CreateTransition("SedSaciada", Bebiendo, NecesidadSaciadaPerception, Esperando);
     }
-
-
+    
     private void Update()
     {
-        if(fsmGranjero_FSM.actualState == Esperando)
+        if (fsmGranjero_FSM.actualState != Comiendo && fsmGranjero_FSM.actualState != Bebiendo)
         {
-            if(corralSuyo.pasto == 0)
+            sed += Time.deltaTime * ratioGananciaSed;
+            hambre += Time.deltaTime * ratioGananciaHambre;
+        }
+        if (fsmGranjero_FSM.actualState == Comiendo &&
+            (int)transform.position.x == (int)gameManager.restaurantePlace.position.x &&
+            (int)transform.position.z == (int)gameManager.restaurantePlace.position.z && !estaComiendo && gameManager.hay_comida)
+        {
+            estaComiendo = true;
+            StartCoroutine(ComerTimer());
+        }
+        if (fsmGranjero_FSM.actualState == Bebiendo &&
+            (int)transform.position.x == (int)gameManager.restaurantePlace.position.x &&
+            (int)transform.position.z == (int)gameManager.restaurantePlace.position.z && !estaBebiendo && gameManager.hay_leche)
+        {
+            estaBebiendo = true;
+            StartCoroutine(BeberTimer());
+        }
+        if (fsmGranjero_FSM.actualState == Esperando)
+        {
+            if (gameManager.hay_comida && hambre > 70)
+            {
+                fsmGranjero_FSM.Fire("HayHambreYComida");
+            }
+            else if (gameManager.hay_leche && sed > 70)
+            {
+                fsmGranjero_FSM.Fire("HaySedYLeche");
+            }
+            else if (corralSuyo.pasto == 0)
             {
                 fsmGranjero_FSM.Fire("ComederoVacio");
             }
@@ -116,8 +169,13 @@ public class fsmGranjero : MonoBehaviour {
         fsmGranjero_FSM.Update();
     }
 
+    protected void LateUpdate()
+    {
+        transform.localEulerAngles = new Vector3(-90, transform.localEulerAngles.y, 0);
+    }
+
     // Create your desired actions
-    
+
     private void EsperandoAction()
     {
         //Debug.Log("Entro a esperar");
@@ -132,11 +190,39 @@ public class fsmGranjero : MonoBehaviour {
     private void OrdeñarVacaAction()
     {
     }
-    
+
+    private void BebiendoAction()
+    {
+        navMesh.destination = gameManager.restaurantePlace.position;
+        estaBebiendo = false;
+    }
+
+    private void ComiendoAction()
+    {
+        navMesh.destination = gameManager.restaurantePlace.position;
+        estaComiendo = false;
+    }
+
     public IEnumerator OrdeñarTimer()
     {
         yield return new WaitForSeconds(5);
         gameManager.leche++;
         fsmGranjero_FSM.Fire("VacaHaSidoOrdeñada");
+    }
+
+    public IEnumerator ComerTimer()
+    {
+        yield return new WaitForSeconds(2);
+        hambre = 0;
+        gameManager.comida--;
+        fsmGranjero_FSM.Fire("HambreSaciada");
+    }
+
+    public IEnumerator BeberTimer()
+    {
+        yield return new WaitForSeconds(2);
+        sed = 0;
+        gameManager.leche--;
+        fsmGranjero_FSM.Fire("SedSaciada");
     }
 }

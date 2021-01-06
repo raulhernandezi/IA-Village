@@ -54,4 +54,9 @@ public class CorralController : MonoBehaviour
         vaca.GetComponent<fsmVaca>().corral = this;
         AñadirVaca(vaca);
     }
+
+    public Vector3 getRandomPointInside()
+    {
+        return Random.insideUnitSphere;
+    }
 }

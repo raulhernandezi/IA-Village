@@ -127,7 +127,7 @@ public class fsmAgricultor : MonoBehaviour {
                 parcelaDestino.GetComponent<ParcelaScript>().plantada = true;
                 parcelaDestino.GetComponent<MeshRenderer>().material = parcelaDestino.GetComponent<ParcelaScript>().meshPlantado;
                 fsmAgricultor_FSM.Fire("PararPlantar");
-                Debug.Log(fsmAgricultor_FSM.actualState.Name);
+                //Debug.Log(fsmAgricultor_FSM.actualState.Name);
                 plantando = false;
             }
         }
@@ -137,14 +137,15 @@ public class fsmAgricultor : MonoBehaviour {
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
             {
-                Debug.Log("Termine de cosechar");
+                //Debug.Log("Termine de cosechar");
+                gameManager.pasto++;
                 barraProgreso.GetComponent<Slider>().value = 0;
                 barraProgreso.SetActive(false);
                 parcelaDestino.GetComponent<ParcelaScript>().cosechable = false;
                 parcelaDestino.GetComponent<ParcelaScript>().libre = true;
                 parcelaDestino.GetComponent<MeshRenderer>().material = parcelaDestino.GetComponent<ParcelaScript>().meshLibre;
                 fsmAgricultor_FSM.Fire("PararCosechar");
-                Debug.Log(fsmAgricultor_FSM.actualState.Name);
+                //Debug.Log(fsmAgricultor_FSM.actualState.Name);
                 cosechando = false;
             }
         }
@@ -206,13 +207,13 @@ public class fsmAgricultor : MonoBehaviour {
     
     private void PlantandoAction()
     {
-        Debug.Log("plantando");
+        //Debug.Log("plantando");
         plantando = true;
     }
     
     private void CosechandoAction()
     {
-        Debug.Log("cosechando");
+        //Debug.Log("cosechando");
         cosechando = true;
     }
 

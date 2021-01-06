@@ -54,7 +54,7 @@ public class GameManagerScript : MonoBehaviour
             contadorOficios[i] = 1;
         }
         StartCoroutine(JabaliGeneratorAuto());
-        //StartCoroutine(ArbolGeneratorAuto());
+        StartCoroutine(ArbolGeneratorAuto());
     }
 
     // Update is called once per frame
