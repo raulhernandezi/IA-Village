@@ -102,7 +102,7 @@ public class fsmVaca : MonoBehaviour {
                 fsmVaca_FSM.Fire("TengoHambreYHayPasto");
             }
         }
-        if(fsmVaca_FSM.actualState == Comer && (int)corral.lugarComer.position.x == (int)transform.position.x && (int)corral.lugarComer.position.z == (int)transform.position.z)
+        if(fsmVaca_FSM.actualState == Comer && (int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
         {
             if (comiendo)
             {
@@ -137,7 +137,7 @@ public class fsmVaca : MonoBehaviour {
     
     private void ComerAction()
     {
-        navMesh.destination = new Vector3(corral.lugarComer.position.x, transform.position.y, corral.lugarComer.position.z + 4);
+        navMesh.destination = new Vector3(corral.lugarComer.position.x, transform.position.y, corral.lugarComer.position.z);
         comiendo = true;
     }
     
