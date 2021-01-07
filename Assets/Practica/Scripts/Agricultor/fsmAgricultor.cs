@@ -138,7 +138,7 @@ public class fsmAgricultor : MonoBehaviour {
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
             {
                 //Debug.Log("Termine de cosechar");
-                gameManager.pasto++;
+                gameManager.pasto += 2;
                 barraProgreso.GetComponent<Slider>().value = 0;
                 barraProgreso.SetActive(false);
                 parcelaDestino.GetComponent<ParcelaScript>().cosechable = false;

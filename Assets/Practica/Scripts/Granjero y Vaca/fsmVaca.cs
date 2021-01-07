@@ -36,6 +36,7 @@ public class fsmVaca : MonoBehaviour {
     private float ratioPerdidaHambrePorSegundo = 2f;
 
     public bool puedeSerOrdeñada;
+    public bool siendoOrdeñada;
 
     public Vector3 posicionRandom;
 
@@ -101,7 +102,7 @@ public class fsmVaca : MonoBehaviour {
                 fsmVaca_FSM.Fire("TengoHambreYHayPasto");
             }
         }
-        if(fsmVaca_FSM.actualState == Comer && (int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
+        if(fsmVaca_FSM.actualState == Comer && (int)corral.lugarComer.position.x == (int)transform.position.x && (int)corral.lugarComer.position.z == (int)transform.position.z)
         {
             if (comiendo)
             {
@@ -109,9 +110,12 @@ public class fsmVaca : MonoBehaviour {
                 StartCoroutine(ComerTimer());
             }
         }
-        if(fsmVaca_FSM.actualState == Esperaraserordeñada && (int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
+        if(fsmVaca_FSM.actualState == Esperaraserordeñada && (int)corral.lugarOrdeñoVaca.position.x == (int)transform.position.x && (int)corral.lugarOrdeñoVaca.position.z == (int)transform.position.z)
         {
-            corral.propietario.GetComponent<fsmGranjero>().vacaLista = true;
+            if (!siendoOrdeñada)
+            {
+                corral.propietario.GetComponent<fsmGranjero>().vacaLista = true;
+            }
         }
         fsmVaca_FSM.Update();
     }
@@ -126,7 +130,7 @@ public class fsmVaca : MonoBehaviour {
     private void EsperandoAction()
     {
         puedeSerOrdeñada = false;
-        posicionRandom = corral.getRandomPointInside() * 8;
+        posicionRandom = corral.getRandomPointInside() * 5;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
         StartCoroutine(MovimientoRandom());
     }
@@ -147,7 +151,8 @@ public class fsmVaca : MonoBehaviour {
     {
         //Debug.Log("Espero a ser ordeñada");
         puedeSerOrdeñada = true;
-        posicionRandom = corral.getRandomPointInside() * 8;
+        siendoOrdeñada = false;
+        posicionRandom = corral.getRandomPointInside() * 5;
         navMesh.destination = new Vector3(corral.transform.position.x + posicionRandom.x, transform.position.y, corral.transform.position.z + posicionRandom.z);
     }
     
@@ -162,7 +167,7 @@ public class fsmVaca : MonoBehaviour {
         yield return new WaitForSeconds(7);
         if (fsmVaca_FSM.actualState == Esperando)
         {
-            posicionRandom = corral.getRandomPointInside() * 8;
+            posicionRandom = corral.getRandomPointInside() * 5;
             navMesh.destination = new Vector3(transform.position.x + posicionRandom.x, transform.position.y, transform.position.z + posicionRandom.z);
             StartCoroutine(MovimientoRandom());
         }

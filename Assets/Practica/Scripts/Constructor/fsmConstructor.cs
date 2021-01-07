@@ -115,7 +115,7 @@ public class fsmConstructor : MonoBehaviour {
             {
                 fsmConstructor_FSM.Fire("HaySedYLeche");
             }
-            else if (gameManager.madera >= 20)
+            else if (gameManager.madera >= 10)
             {
                 for (int i = 0; i < cimientosController.cimientos.Length; i++)
                 {
@@ -186,7 +186,7 @@ public class fsmConstructor : MonoBehaviour {
             }
         }
         Instantiate(prefabsCasas[indice], lugarDondeConstruir.position, lugarDondeConstruir.rotation);
-        gameManager.madera -= 20;
+        gameManager.madera -= 10;
         fsmConstructor_FSM.Fire("ConstruccionFinalizada");
     }
 

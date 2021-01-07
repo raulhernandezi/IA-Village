@@ -21,7 +21,7 @@ public class CorralController : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManagerScript>();
-        GameObject vacaPrimera = Instantiate(vacaPrefab, transform.position + new Vector3(0,0.5f,0), Quaternion.identity);
+        GameObject vacaPrimera = Instantiate(vacaPrefab, transform.position + new Vector3(0,2f,0), Quaternion.identity);
         vacaPrimera.GetComponent<fsmVaca>().corral = this;
         AñadirVaca(vacaPrimera);
         propietario = Instantiate(granjeroPrefab, transform.position + new Vector3(5, 0.5f, 0), Quaternion.identity);
@@ -40,7 +40,7 @@ public class CorralController : MonoBehaviour
     public void ComerPasto()
     {
         pasto--;
-        if(pasto == 0)
+        if(pasto <= 0)
         {
             comederoGO.GetComponent<MeshFilter>().sharedMesh = comederoVacio;
         }
@@ -53,13 +53,14 @@ public class CorralController : MonoBehaviour
 
     public void CrearVaca()
     {
-        GameObject vaca = Instantiate(vacaPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        GameObject vaca = Instantiate(vacaPrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
         vaca.GetComponent<fsmVaca>().corral = this;
         AñadirVaca(vaca);
     }
 
     public Vector3 getRandomPointInside()
     {
-        return Random.insideUnitSphere;
+        Vector3 punto = Random.insideUnitSphere;
+        return punto;
     }
 }

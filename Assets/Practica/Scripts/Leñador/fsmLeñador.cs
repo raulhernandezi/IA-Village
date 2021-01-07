@@ -134,7 +134,6 @@ public class fsmLeñador : MonoBehaviour {
             (int)arbolDestino.GetComponent<ArbolController>().zonaDeTalado.position.x == (int)transform.position.x && 
             (int)arbolDestino.GetComponent<ArbolController>().zonaDeTalado.position.z == (int)transform.position.z)
         {
-            Debug.Log("He llegado al arbol para talar");
             fsmLeñador_FSM.Fire("ArbolEncontrado");
             
         }
@@ -152,13 +151,11 @@ public class fsmLeñador : MonoBehaviour {
                 estadoHacha++;
                 if (estadoHacha >= 6)
                 {
-                    Debug.Log("a reparar");
                     gameManager.madera += 3;
                     fsmLeñador_FSM.Fire("HachaRota");
                 }
                 else
                 {
-                    Debug.Log("ya he talado bieeeeeeeeeeeen");
                     StartCoroutine("timerTalado");
                     
                 }
@@ -167,7 +164,6 @@ public class fsmLeñador : MonoBehaviour {
 
         if (fsmLeñador_FSM.actualState == RepararHacha && (int)transform.position.x == (int)herreria.position.x && (int)transform.position.z == (int)herreria.position.z)
         {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             barraProgreso.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
             if (barraProgreso.GetComponent<Slider>().value == barraProgreso.GetComponent<Slider>().maxValue)
             {
@@ -175,10 +171,7 @@ public class fsmLeñador : MonoBehaviour {
                 fsmLeñador_FSM.Fire("HachaReparada");
                 barraProgreso.GetComponent<Slider>().value = 0;
                 barraProgreso.SetActive(false);
-                
-                Debug.Log(fsmLeñador_FSM.actualState.Name);
                 reparando = false;
-
             }
         }
         

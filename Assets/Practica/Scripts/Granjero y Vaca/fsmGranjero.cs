@@ -31,6 +31,7 @@ public class fsmGranjero : MonoBehaviour {
     public GameManagerScript gameManager;
     public int pastoRecogido;
     public bool vacaLista;
+    public bool pastoTomado;
 
     public float hambre;
     public float sed;
@@ -117,7 +118,7 @@ public class fsmGranjero : MonoBehaviour {
             {
                 fsmGranjero_FSM.Fire("HaySedYLeche");
             }
-            else if (corralSuyo.pasto == 0)
+            else if (corralSuyo.pasto <= 0)
             {
                 fsmGranjero_FSM.Fire("ComederoVacio");
             }
@@ -142,8 +143,9 @@ public class fsmGranjero : MonoBehaviour {
         }
         if(fsmGranjero_FSM.actualState == RellenarComedero)
         {
-            if((int)transform.position.x == (int)gameManager.almacenDropPlace.position.x && (int)transform.position.z == (int)gameManager.almacenDropPlace.position.z)
+            if((int)transform.position.x == (int)gameManager.almacenDropPlace.position.x && (int)transform.position.z == (int)gameManager.almacenDropPlace.position.z && !pastoTomado)
             {
+                pastoTomado = true;
                 pastoRecogido = gameManager.pasto / 2;
                 gameManager.pasto -= pastoRecogido;
                 navMesh.destination = corralSuyo.lugarComer.position;
@@ -156,10 +158,11 @@ public class fsmGranjero : MonoBehaviour {
         }
         if(fsmGranjero_FSM.actualState == OrdeñarVaca)
         {
-            if((int)navMesh.destination.x == (int)transform.position.x && (int)navMesh.destination.z == (int)transform.position.z)
+            if((int)corralSuyo.lugarOrdeñoGranjero.position.x == (int)transform.position.x && (int)corralSuyo.lugarOrdeñoGranjero.position.z == (int)transform.position.z)
             {
                 if (vacaLista)
                 {
+                    vacaAOrdeñar.GetComponent<fsmVaca>().siendoOrdeñada = true;
                     vacaLista = false;
                     vacaAOrdeñar.GetComponent<fsmVaca>().fsmVaca_FSM.Fire("GranjeroOrdeñando");
                     StartCoroutine(OrdeñarTimer());
@@ -185,6 +188,7 @@ public class fsmGranjero : MonoBehaviour {
     private void RellenarComederoAction()
     {
         navMesh.destination = gameManager.almacenDropPlace.position;
+        pastoTomado = false;
     }
     
     private void OrdeñarVacaAction()
@@ -206,7 +210,7 @@ public class fsmGranjero : MonoBehaviour {
     public IEnumerator OrdeñarTimer()
     {
         yield return new WaitForSeconds(5);
-        gameManager.leche++;
+        gameManager.leche += 2;
         fsmGranjero_FSM.Fire("VacaHaSidoOrdeñada");
     }
 
